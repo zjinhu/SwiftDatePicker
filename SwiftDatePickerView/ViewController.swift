@@ -26,6 +26,8 @@ class ViewController: UIViewController {
             m.height.equalTo(200)
         }
         
+        
+        //弹窗
         let btn = UIButton(frame: .init(x: 0, y: 100, width: UIScreen.main.bounds.width, height: 60))
         btn.setTitle("点击弹窗", for: .normal)
         btn.backgroundColor = .orange
