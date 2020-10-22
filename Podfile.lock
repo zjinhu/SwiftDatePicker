@@ -1,0 +1,31 @@
+PODS:
+  - SnapKit (5.0.1)
+  - SwiftButton (1.0.2):
+    - SnapKit
+  - SwiftDate (6.2.0)
+  - SwiftShow/Class (0.3.5):
+    - SnapKit
+    - SwiftButton
+  - SwiftShow/Presentation (0.3.5):
+    - SwiftShow/Class
+
+DEPENDENCIES:
+  - SwiftDate
+  - SwiftShow/Presentation
+
+SPEC REPOS:
+  trunk:
+    - SnapKit
+    - SwiftButton
+    - SwiftDate
+    - SwiftShow
+
+SPEC CHECKSUMS:
+  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
+  SwiftButton: 10ef7a38c71f9c299a53428d4536e321fd1e31f4
+  SwiftDate: d117c3eb6beed72e47d3f4d1e3bc63fa1e66d7c3
+  SwiftShow: 1f559e6610cff1665907fbe0315202f71ac76dfc
+
+PODFILE CHECKSUM: c8185c77e25e531d9ad9abc634acd9298ef93dd2
+
+COCOAPODS: 1.10.0.rc.1
