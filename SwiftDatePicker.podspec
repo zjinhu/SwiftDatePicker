@@ -1,9 +1,9 @@
 
-Pod::Spec.new do |spec|
+Pod::Spec.new do |s|
 
-  spec.name         = "SwiftDatePicker"
-  spec.version      = "0.1.0"
-  spec.summary      = "A short description of SwiftDatePicker."
+  s.name         = "SwiftDatePicker"
+  s.version      = "0.1.0"
+  s.summary      = "A short description of SwiftDatePicker."
 
   s.homepage         = 'https://github.com/jackiehu/SwiftDatePicker'
 
