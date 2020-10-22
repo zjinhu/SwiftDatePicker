@@ -9,7 +9,7 @@ Pod::Spec.new do |spec|
 
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'jackiehu' => 'jackie' }
-  s.source           = { :git => 'https://github.com/jackiehu/SwiftDatePicker', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/jackiehu/SwiftDatePicker.git', :tag => s.version.to_s }
 
   s.ios.deployment_target = '11.0'
 
