@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "SwiftDatePicker"
-  s.version      = "0.2.0"
+  s.version      = "0.3.0"
   s.summary      = "A short description of SwiftDatePicker."
 
   s.homepage         = 'https://github.com/jackiehu/SwiftDatePicker'
@@ -13,8 +13,6 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = '11.0'
 
-  s.source_files = 'Sources/**/*'
- 
   s.dependency 'SnapKit'
   s.dependency 'SwiftShow/Presentation'
   
