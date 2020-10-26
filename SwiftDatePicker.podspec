@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "SwiftDatePicker"
-  s.version      = "0.1.0"
+  s.version      = "0.2.0"
   s.summary      = "A short description of SwiftDatePicker."
 
   s.homepage         = 'https://github.com/jackiehu/SwiftDatePicker'
@@ -17,8 +17,23 @@ Pod::Spec.new do |s|
  
   s.dependency 'SnapKit'
   s.dependency 'SwiftShow/Presentation'
-  s.dependency 'SwiftDate'
+  
   s.swift_versions     = ['4.2','5.0','5.1','5.2']
   s.requires_arc = true
+
+  s.subspec 'Tools' do |ss|
+    ss.source_files = 'Sources/SwiftDatePicker/Tools/**/*'
+  end
+    
+  s.subspec 'UIKit' do |ss|
+    ss.dependency 'SwiftDatePicker/Tools'
+    ss.source_files = 'Sources/SwiftDatePicker/UIKit/**/*'
+  end
+    
+  s.subspec 'Custom' do |ss|
+    ss.dependency 'SwiftDate'
+    ss.dependency 'SwiftDatePicker/Tools'
+    ss.source_files = 'Sources/SwiftDatePicker/Custom/**/*'
+  end
 
 end

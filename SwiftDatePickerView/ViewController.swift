@@ -33,10 +33,23 @@ class ViewController: UIViewController {
         btn.backgroundColor = .orange
         btn.addTarget(self, action: #selector(action), for: .touchUpInside)
         view.addSubview(btn)
+        
+        //弹窗
+        let btn2 = UIButton(frame: .init(x: 0, y: 200, width: UIScreen.main.bounds.width, height: 60))
+        btn2.setTitle("点击弹窗", for: .normal)
+        btn2.backgroundColor = .orange
+        btn2.addTarget(self, action: #selector(action2), for: .touchUpInside)
+        view.addSubview(btn2)
     }
 
     @objc func action(){
         DatePickerVC.showPicker(pickerType: .pickerDate) { (date) in
+            print("\(String(describing: date))")
+        }
+    }
+    
+    @objc func action2(){
+        UIDatePickerVC.showPicker(mode: .dateAndTime) { (date) in
             print("\(String(describing: date))")
         }
     }

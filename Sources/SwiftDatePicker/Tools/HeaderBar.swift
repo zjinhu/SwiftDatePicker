@@ -37,7 +37,7 @@ public class HeaderBar: UIView {
     fileprivate lazy var titleLabel: UILabel = {
         let lab = UILabel()
         lab.font = .systemFont(ofSize: 16, weight: .semibold)
-        lab.textColor = .black
+        lab.textColor = DatePicker.barTitleColor ?? .black
         lab.numberOfLines = 0
         lab.adjustsFontSizeToFitWidth = true
         lab.minimumScaleFactor = 0.5
@@ -47,7 +47,7 @@ public class HeaderBar: UIView {
     fileprivate lazy var leftButton : UIButton = {
         let b = UIButton()
         b.titleLabel?.font = .systemFont(ofSize: 16)
-        b.setTitleColor(.black, for: .normal)
+        b.setTitleColor(DatePicker.barButtonColor ?? .black, for: .normal)
         b.setTitleColor(.lightGray, for: .highlighted)
         b.addTarget(self, action: #selector(leftAction), for: .touchUpInside)
         return b
@@ -56,7 +56,7 @@ public class HeaderBar: UIView {
     fileprivate lazy var rightButton : UIButton = {
         let b = UIButton()
         b.titleLabel?.font = .systemFont(ofSize: 16)
-        b.setTitleColor(.black, for: .normal)
+        b.setTitleColor(DatePicker.barButtonColor ?? .black, for: .normal)
         b.setTitleColor(.lightGray, for: .highlighted)
         b.addTarget(self, action: #selector(rightAction), for: .touchUpInside)
         return b

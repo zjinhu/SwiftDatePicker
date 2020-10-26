@@ -52,7 +52,7 @@ public class DatePickerVC: UIViewController, PresentedViewType{
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = DatePicker.popColor ?? .white
+        view.backgroundColor = DatePicker.pickerBackColor ?? .white
         view.clipsToBounds = true
         view.layer.cornerRadius = 10
         view.layer.maskedCorners = [.layerMinXMinYCorner,.layerMaxXMinYCorner]
@@ -76,7 +76,7 @@ public class DatePickerVC: UIViewController, PresentedViewType{
     public static func showPicker(pickerType: DatePickerStyle = .pickerDate, callBack: @escaping PickerClosure){
         let vc = DatePickerVC(pickerType: pickerType)
         vc.pickerCallBack = callBack
-        var component = PresentedViewComponent(contentSize: CGSize(width: DatePicker.popWidth ?? UIScreen.main.bounds.width, height: DatePicker.popHeight ?? 300))
+        var component = PresentedViewComponent(contentSize: CGSize(width: DatePicker.pickerWidth ?? UIScreen.main.bounds.width, height: DatePicker.pickerHeight ?? 300))
         component.destination = .bottomBaseline
         component.presentTransitionType = .translation(origin: .bottomOutOfLine)
         vc.presentedViewComponent = component
@@ -84,17 +84,3 @@ public class DatePickerVC: UIViewController, PresentedViewType{
     }
 }
 
-public struct DatePicker {
-    public static var barStyle: BarStyle?
-    public static var titleString: String?
-    public static var leftString: String?
-    public static var rightString: String?
-    public static var barColor: UIColor?
-    public static var barHeight: CGFloat?
-    
-    public static var popColor: UIColor?
-    public static var popWidth: CGFloat?
-    public static var popHeight: CGFloat?
-    public static var minYear: Int?
-    public static var maxYear: Int?
-}
