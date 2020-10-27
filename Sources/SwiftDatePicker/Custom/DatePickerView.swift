@@ -466,13 +466,3 @@ struct DateList {
         return diff.day!
     }
 }
-
-extension Date {
-    public static func current() -> Date{
-        let calendar = Calendar.current
-        var comp = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: Date())
-        comp.timeZone = TimeZone(secondsFromGMT: 0)
-        let currentDate = calendar.date(from: comp)
-        return currentDate!
-    }
-}

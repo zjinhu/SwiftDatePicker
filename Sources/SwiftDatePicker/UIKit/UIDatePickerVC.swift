@@ -15,7 +15,7 @@ public class UIDatePickerVC: UIViewController, PresentedViewType {
     fileprivate var pickerCallBack : PickerClosure?
     fileprivate var pickerDate: Date = Date.current()
     
-    fileprivate lazy var header: HeaderBar = {
+    lazy var header: HeaderBar = {
         let v = HeaderBar(style: DatePicker.barStyle ?? .titleCenter,
                           title: DatePicker.titleString ?? "选择日期",
                           left: DatePicker.leftString ?? "取消",
