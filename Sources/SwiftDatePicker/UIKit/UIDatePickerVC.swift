@@ -10,10 +10,12 @@ import SwiftShow
 import SnapKit
 public class UIDatePickerVC: UIViewController, PresentedViewType {
     public var presentedViewComponent: PresentedViewComponent?
-    public typealias PickerClosure = (Date?) -> Void
+    public typealias PickerClosure = (Date) -> Void
+    
     fileprivate var pickerCallBack : PickerClosure?
-    fileprivate var pickerDate: Date?
-    lazy var header: HeaderBar = {
+    fileprivate var pickerDate: Date = Date.current()
+    
+    fileprivate lazy var header: HeaderBar = {
         let v = HeaderBar(style: DatePicker.barStyle ?? .titleCenter,
                           title: DatePicker.titleString ?? "选择日期",
                           left: DatePicker.leftString ?? "取消",
@@ -34,7 +36,8 @@ public class UIDatePickerVC: UIViewController, PresentedViewType {
         
         return v
     }()
-    lazy var picker: UIDatePicker = {
+    
+    fileprivate lazy var picker: UIDatePicker = {
         let p = UIDatePicker()
         p.timeZone = TimeZone.init(identifier: "CCD")
         p.locale = Locale(identifier: "zh_CN")
@@ -75,11 +78,11 @@ public class UIDatePickerVC: UIViewController, PresentedViewType {
         }
     }
     
-    @objc func dateChanged(datePicker : UIDatePicker){
+    @objc fileprivate func dateChanged(datePicker : UIDatePicker){
         let calendar = Calendar.current
         var comp = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: datePicker.date)
         comp.timeZone = TimeZone(secondsFromGMT: 0)
-        pickerDate = calendar.date(from: comp)
+        pickerDate = calendar.date(from: comp) ?? Date.current()
     }
     
     public static func showPicker(mode: UIDatePicker.Mode, callBack: @escaping PickerClosure){
