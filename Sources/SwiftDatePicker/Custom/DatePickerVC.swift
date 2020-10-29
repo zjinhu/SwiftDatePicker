@@ -16,9 +16,7 @@ public class DatePickerVC: UIViewController, PresentedViewType{
                           title: HeadBar.titleString ?? "选择日期",
                           left: HeadBar.leftString ?? "取消",
                           right: HeadBar.rightString ?? "确定")
-        
-        v.backgroundColor = HeadBar.barColor ?? .white
-        
+
         v.leftCallBack = { [weak self] in
             guard let `self` = self else{ return }
             self.dismiss(animated: true, completion: nil)

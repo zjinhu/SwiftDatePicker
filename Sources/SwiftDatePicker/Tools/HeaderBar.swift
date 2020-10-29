@@ -64,6 +64,8 @@ public class HeaderBar: UIView {
     
     func setupViews(){
         
+        backgroundColor = HeadBar.barColor ?? .white
+        
         titleLabel.text = titleString
         leftButton.setTitle(leftString, for: .normal)
         rightButton.setTitle(rightString, for: .normal)
