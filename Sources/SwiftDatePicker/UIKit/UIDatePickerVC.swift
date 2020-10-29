@@ -16,12 +16,12 @@ public class UIDatePickerVC: UIViewController, PresentedViewType {
     fileprivate var pickerDate: Date = Date.current()
     
     lazy var header: HeaderBar = {
-        let v = HeaderBar(style: DatePicker.barStyle ?? .titleCenter,
-                          title: DatePicker.titleString ?? "选择日期",
-                          left: DatePicker.leftString ?? "取消",
-                          right: DatePicker.rightString ?? "确定")
+        let v = HeaderBar(style: HeadBar.barStyle ?? .titleCenter,
+                          title: HeadBar.titleString ?? "选择日期",
+                          left: HeadBar.leftString ?? "取消",
+                          right: HeadBar.rightString ?? "确定")
         
-        v.backgroundColor = DatePicker.barColor ?? .white
+        v.backgroundColor = HeadBar.barColor ?? .white
         
         v.leftCallBack = { [weak self] in
             guard let `self` = self else{ return }
@@ -66,7 +66,7 @@ public class UIDatePickerVC: UIViewController, PresentedViewType {
         view.addSubview(header)
         header.snp.makeConstraints { (m) in
             m.top.left.right.equalToSuperview()
-            m.height.equalTo(DatePicker.barHeight ?? 45)
+            m.height.equalTo(HeadBar.barHeight ?? 45)
         }
          
         view.addSubview(picker)

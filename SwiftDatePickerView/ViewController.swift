@@ -12,8 +12,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        DatePicker.titleString = "选择日期/时间"
-        DatePicker.barColor = .orange
+        HeadBar.titleString = "选择日期/时间"
+        HeadBar.barColor = .orange
         
         let pick = DatePickerView(type: .pickerDateHourMinute, minYear: 1999, maxYear: 2030) { (date) in
             print("\(date)")
