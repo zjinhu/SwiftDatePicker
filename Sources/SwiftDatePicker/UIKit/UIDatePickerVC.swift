@@ -23,13 +23,15 @@ public class UIDatePickerVC: UIViewController, PresentedViewType {
 
         v.leftCallBack = { [weak self] in
             guard let `self` = self else{ return }
-            self.dismiss(animated: true, completion: self.dismissCallBack)
+            self.dismissCallBack?()
+            self.dismiss(animated: true, completion: nil)
         }
         
         v.rightCallBack = { [weak self] in
             guard let `self` = self else{ return }
             self.pickerCallBack?(self.pickerDate)
-            self.dismiss(animated: true, completion: self.dismissCallBack)
+            self.dismissCallBack?()
+            self.dismiss(animated: true, completion: nil)
         }
         
         return v
