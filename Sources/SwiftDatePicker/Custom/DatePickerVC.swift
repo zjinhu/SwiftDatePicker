@@ -11,6 +11,12 @@ import SnapKit
 public class DatePickerVC: UIViewController, PresentedViewType{
     public var presentedViewComponent: PresentedViewComponent?
     
+    fileprivate var dismissCallBack : CloseClosure?
+    fileprivate var pickerCallBack : PickerClosure?
+    
+    fileprivate var pickView: DatePickerView?
+    fileprivate var pickerDate: Date = Date.current()
+    
     lazy var header: HeaderBar = {
         let v = HeaderBar(style: HeadBar.barStyle ?? .titleCenter,
                           title: HeadBar.titleString ?? "选择日期",
@@ -19,22 +25,17 @@ public class DatePickerVC: UIViewController, PresentedViewType{
 
         v.leftCallBack = { [weak self] in
             guard let `self` = self else{ return }
-            self.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true, completion: self.dismissCallBack)
         }
         
         v.rightCallBack = { [weak self] in
             guard let `self` = self else{ return }
             self.pickerCallBack?(self.pickerDate)
-            self.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true, completion: self.dismissCallBack)
         }
         
         return v
     }()
-    
-    fileprivate var pickView: DatePickerView?
-    fileprivate var pickerDate: Date = Date.current()
-    public typealias PickerClosure = (Date) -> Void
-    fileprivate var pickerCallBack : PickerClosure?
 
     public convenience init(pickerType: DatePickerStyle) {
         self.init()
@@ -71,9 +72,12 @@ public class DatePickerVC: UIViewController, PresentedViewType{
     }
 
     
-    public static func showPicker(pickerType: DatePickerStyle = .pickerDate, callBack: @escaping PickerClosure){
+    public static func showPicker(pickerType: DatePickerStyle = .pickerDate,
+                                  dateCallBack: @escaping PickerClosure,
+                                  dismissCallBack: @escaping CloseClosure){
         let vc = DatePickerVC(pickerType: pickerType)
-        vc.pickerCallBack = callBack
+        vc.pickerCallBack = dateCallBack
+        vc.dismissCallBack = dismissCallBack
         var component = PresentedViewComponent(contentSize: CGSize(width: DatePicker.pickerWidth ?? UIScreen.main.bounds.width, height: DatePicker.pickerHeight ?? 300))
         component.destination = .bottomBaseline
         component.presentTransitionType = .translation(origin: .bottomOutOfLine)

@@ -10,8 +10,8 @@ import SwiftShow
 import SnapKit
 public class UIDatePickerVC: UIViewController, PresentedViewType {
     public var presentedViewComponent: PresentedViewComponent?
-    public typealias PickerClosure = (Date) -> Void
-    
+
+    fileprivate var dismissCallBack : CloseClosure?
     fileprivate var pickerCallBack : PickerClosure?
     fileprivate var pickerDate: Date = Date.current()
     
@@ -23,13 +23,13 @@ public class UIDatePickerVC: UIViewController, PresentedViewType {
 
         v.leftCallBack = { [weak self] in
             guard let `self` = self else{ return }
-            self.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true, completion: self.dismissCallBack)
         }
         
         v.rightCallBack = { [weak self] in
             guard let `self` = self else{ return }
             self.pickerCallBack?(self.pickerDate)
-            self.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true, completion: self.dismissCallBack)
         }
         
         return v
@@ -83,9 +83,13 @@ public class UIDatePickerVC: UIViewController, PresentedViewType {
         pickerDate = calendar.date(from: comp) ?? Date.current()
     }
     
-    public static func showPicker(mode: UIDatePicker.Mode, callBack: @escaping PickerClosure){
+    public static func showPicker(mode: UIDatePicker.Mode,
+                                  dateCallBack: @escaping PickerClosure,
+                                  dismissCallBack: @escaping CloseClosure){
+        
         let vc = UIDatePickerVC(mode: mode)
-        vc.pickerCallBack = callBack
+        vc.pickerCallBack = dateCallBack
+        vc.dismissCallBack = dismissCallBack
         var component = PresentedViewComponent(contentSize: CGSize(width: DatePicker.pickerWidth ?? UIScreen.main.bounds.width, height: DatePicker.pickerHeight ?? 300))
         component.destination = .bottomBaseline
         component.presentTransitionType = .translation(origin: .bottomOutOfLine)

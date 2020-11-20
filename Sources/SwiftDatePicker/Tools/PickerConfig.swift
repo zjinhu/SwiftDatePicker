@@ -6,6 +6,11 @@
 //
 
 import UIKit
+
+public typealias CloseClosure = () -> Void
+public typealias PickerClosure = (Date) -> Void
+
+
 public struct DatePicker {
     public static var pickerTextColor: UIColor?
     public static var pickerBackColor: UIColor?

@@ -45,13 +45,18 @@ class ViewController: UIViewController {
     @objc func action(){
         DatePickerVC.showPicker(pickerType: .pickerDate) { (date) in
             print("\(String(describing: date))")
+        } dismissCallBack: {
+            print("close")
         }
     }
     
     @objc func action2(){
         UIDatePickerVC.showPicker(mode: .dateAndTime) { (date) in
             print("\(String(describing: date))")
+        } dismissCallBack: {
+            print("close")
         }
+
     }
 }
 
