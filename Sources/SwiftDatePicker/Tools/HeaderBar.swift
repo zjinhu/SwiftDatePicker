@@ -36,7 +36,7 @@ public class HeaderBar: UIView {
 
     fileprivate lazy var titleLabel: UILabel = {
         let lab = UILabel()
-        lab.font = .systemFont(ofSize: 16, weight: .semibold)
+        lab.font = HeadBar.titleFont ?? .systemFont(ofSize: 16)
         lab.textColor = HeadBar.barTitleColor ?? .black
         lab.numberOfLines = 0
         lab.adjustsFontSizeToFitWidth = true
@@ -46,7 +46,7 @@ public class HeaderBar: UIView {
     
     fileprivate lazy var leftButton : UIButton = {
         let b = UIButton()
-        b.titleLabel?.font = .systemFont(ofSize: 16)
+        b.titleLabel?.font = HeadBar.buttonFont ?? .systemFont(ofSize: 16)
         b.setTitleColor(HeadBar.barButtonColor ?? .black, for: .normal)
         b.setTitleColor(.lightGray, for: .highlighted)
         b.addTarget(self, action: #selector(leftAction), for: .touchUpInside)
@@ -55,7 +55,7 @@ public class HeaderBar: UIView {
     
     fileprivate lazy var rightButton : UIButton = {
         let b = UIButton()
-        b.titleLabel?.font = .systemFont(ofSize: 16)
+        b.titleLabel?.font = HeadBar.buttonFont ?? .systemFont(ofSize: 16)
         b.setTitleColor(HeadBar.barButtonColor ?? .black, for: .normal)
         b.setTitleColor(.lightGray, for: .highlighted)
         b.addTarget(self, action: #selector(rightAction), for: .touchUpInside)

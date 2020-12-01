@@ -214,7 +214,7 @@ public class DatePickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSourc
         if let v = view {
             label = v as! UILabel
         }
-        label.font = UIFont.systemFont(ofSize: 16)
+        label.font = DatePicker.pickerFont ?? UIFont.systemFont(ofSize: 16)
         label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.5
