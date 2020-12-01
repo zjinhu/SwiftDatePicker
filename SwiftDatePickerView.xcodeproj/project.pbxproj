@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4F9E31EA7047CDDA1383F359 /* Pods_SwiftDatePickerView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7ED7F74D44F2740E303C4BC /* Pods_SwiftDatePickerView.framework */; };
+		81074F8025762ADF00C60057 /* StartEndTimePickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81074F7F25762ADF00C60057 /* StartEndTimePickerVC.swift */; };
 		811293AE25416FDE009F8856 /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811293AB25416FDE009F8856 /* DatePickerView.swift */; };
 		811293AF25416FDE009F8856 /* DatePickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811293AC25416FDE009F8856 /* DatePickerVC.swift */; };
 		811293B025416FDE009F8856 /* HeaderBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811293AD25416FDE009F8856 /* HeaderBar.swift */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		81074F7F25762ADF00C60057 /* StartEndTimePickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartEndTimePickerVC.swift; sourceTree = "<group>"; };
 		811293AB25416FDE009F8856 /* DatePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 		811293AC25416FDE009F8856 /* DatePickerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerVC.swift; sourceTree = "<group>"; };
 		811293AD25416FDE009F8856 /* HeaderBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderBar.swift; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 			children = (
 				811293AB25416FDE009F8856 /* DatePickerView.swift */,
 				811293AC25416FDE009F8856 /* DatePickerVC.swift */,
+				81074F7F25762ADF00C60057 /* StartEndTimePickerVC.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -256,6 +259,7 @@
 				811293B025416FDE009F8856 /* HeaderBar.swift in Sources */,
 				81EBB5CB25401F0D00ED8B87 /* ViewController.swift in Sources */,
 				811293AF25416FDE009F8856 /* DatePickerVC.swift in Sources */,
+				81074F8025762ADF00C60057 /* StartEndTimePickerVC.swift in Sources */,
 				81BDE37E2546D7DD00F8130D /* PickerConfig.swift in Sources */,
 				81BDE37A2546D03D00F8130D /* UIDatePickerVC.swift in Sources */,
 				81EBB5C725401F0D00ED8B87 /* AppDelegate.swift in Sources */,

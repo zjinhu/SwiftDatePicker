@@ -9,7 +9,7 @@ import UIKit
 
 public typealias CloseClosure = () -> Void
 public typealias PickerClosure = (Date) -> Void
-
+public typealias TimeIntervalClosure = (Date, Date) -> Void
 
 public struct DatePicker {
     public static var pickerFont: UIFont?

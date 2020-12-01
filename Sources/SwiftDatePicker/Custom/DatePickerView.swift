@@ -19,29 +19,32 @@ public enum DatePickerStyle {
 }
 
 public class DatePickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource{
-
+    
     fileprivate var year: Int = Date.current().year
     fileprivate var month: Int = Date.current().month
     fileprivate var day: Int = Date.current().day
     fileprivate var hour: Int = Date.current().hour
     fileprivate var minute: Int = Date.current().minute
-
+    
     fileprivate var pickerType: DatePickerStyle = .pickerDate
     
     fileprivate var min: Int = 0
     fileprivate var max: Int = 0
+    fileprivate var isShowUnit: Bool = true
     
     public typealias PickerClosure = (Date) -> Void
     fileprivate var pickerCallBack : PickerClosure?
     
     public convenience init(type: DatePickerStyle,
-                     minYear: Int = Date.current().year,
-                     maxYear: Int = Date.current().year + 5,
-                     callBack: @escaping PickerClosure){
+                            minYear: Int = Date.current().year,
+                            maxYear: Int = Date.current().year + 5,
+                            showUnit: Bool = true,
+                            callBack: @escaping PickerClosure){
         self.init()
         pickerType = type
         min = minYear
         max = maxYear
+        isShowUnit = showUnit
         pickerCallBack = callBack
         
         let pickerView = UIPickerView()
@@ -168,7 +171,7 @@ public class DatePickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSourc
                 return DateList.getMinuteList().count
             }
             return getYearList().count
-        
+            
         case .pickerMonthDay: //月日
             if component == 1 {
                 return getDayList().count
@@ -194,13 +197,13 @@ public class DatePickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSourc
                 return DateList.getMinuteList().count
             }
             return DateList.getMonthList().count
-        
+            
         case .pickerTime: //时分
             if component == 1 {
                 return DateList.getMinuteList().count
             }
             return DateList.getHourList().count
-
+            
         }
     }
     
@@ -222,84 +225,84 @@ public class DatePickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSourc
         switch pickerType {
         case .pickerDate: //年月日
             if component == 0 {
-                label.text = "\(getYearList()[row]) 年"
+                label.text = String(format: "%d %@", getYearList()[row], isShowUnit ? "年" : "")
             }
             if component == 1 {
-                label.text = String(format: "%02d 月", DateList.getMonthList()[row])
+                label.text = String(format: "%02d %@", DateList.getMonthList()[row], isShowUnit ? "月" : "")
             }
             if component == 2 {
-                label.text = String(format: "%02d 日", getDayList()[row])
+                label.text = String(format: "%02d %@", getDayList()[row], isShowUnit ? "日" : "")
             }
             
         case .pickerDateHour: //年月日时
             if component == 0 {
-                label.text = "\(getYearList()[row]) 年"
+                label.text = String(format: "%d %@", getYearList()[row], isShowUnit ? "年" : "")
             }
             if component == 1 {
-                label.text = String(format: "%02d 月", DateList.getMonthList()[row])
+                label.text = String(format: "%02d %@", DateList.getMonthList()[row], isShowUnit ? "月" : "")
             }
             if component == 2 {
-                label.text = String(format: "%02d 日", getDayList()[row])
+                label.text = String(format: "%02d %@", getDayList()[row], isShowUnit ? "日" : "")
             }
             if component == 3 {
-                label.text = String(format: "%02d 时", DateList.getHourList()[row])
+                label.text = String(format: "%02d %@", DateList.getHourList()[row], isShowUnit ? "时" : "")
             }
         case .pickerDateHourMinute: //年月日时分
             if component == 0 {
-                label.text = "\(getYearList()[row]) 年"
+                label.text = String(format: "%d %@", getYearList()[row], isShowUnit ? "年" : "")
             }
             if component == 1 {
-                label.text = String(format: "%02d 月", DateList.getMonthList()[row])
+                label.text = String(format: "%02d %@", DateList.getMonthList()[row], isShowUnit ? "月" : "")
             }
             if component == 2 {
-                label.text = String(format: "%02d 日", getDayList()[row])
+                label.text = String(format: "%02d %@", getDayList()[row], isShowUnit ? "日" : "")
             }
             if component == 3 {
-                label.text = String(format: "%02d 时", DateList.getHourList()[row])
+                label.text = String(format: "%02d %@", DateList.getHourList()[row], isShowUnit ? "时" : "")
             }
             if component == 4 {
-                label.text = String(format: "%02d 分", DateList.getMinuteList()[row])
+                label.text = String(format: "%02d %@", DateList.getMinuteList()[row], isShowUnit ? "分" : "")
             }
-        
+            
         case .pickerMonthDay: //月日
             if component == 0 {
-                label.text = String(format: "%02d 月", DateList.getMonthList()[row])
+                label.text = String(format: "%02d %@", DateList.getMonthList()[row], isShowUnit ? "月" : "")
             }
             if component == 1 {
-                label.text = String(format: "%02d 日", getDayList()[row])
+                label.text = String(format: "%02d %@", getDayList()[row], isShowUnit ? "日" : "")
             }
         case .pickerMonthDayHour: //月日时
             if component == 0 {
-                label.text = String(format: "%02d 月", DateList.getMonthList()[row])
+                label.text = String(format: "%02d %@", DateList.getMonthList()[row], isShowUnit ? "月" : "")
             }
             if component == 1 {
-                label.text = String(format: "%02d 日", getDayList()[row])
+                label.text = String(format: "%02d %@", getDayList()[row], isShowUnit ? "日" : "")
             }
             if component == 2 {
-                label.text = String(format: "%02d 时", DateList.getHourList()[row])
+                label.text = String(format: "%02d %@", DateList.getHourList()[row], isShowUnit ? "时" : "")
             }
         case .pickerMonthDayHourMinute: //月日时分
             if component == 0 {
-                label.text = String(format: "%02d 月", DateList.getMonthList()[row])
+                label.text = String(format: "%02d %@", DateList.getMonthList()[row], isShowUnit ? "月" : "")
             }
             if component == 1 {
-                label.text = String(format: "%02d 日", getDayList()[row])
+                label.text = String(format: "%02d %@", getDayList()[row], isShowUnit ? "日" : "")
             }
             if component == 2 {
-                label.text = String(format: "%02d 时", DateList.getHourList()[row])
+                label.text = String(format: "%02d %@", DateList.getHourList()[row], isShowUnit ? "时" : "")
             }
             if component == 3 {
-                label.text = String(format: "%02d 分", DateList.getMinuteList()[row])
+                label.text = String(format: "%02d %@", DateList.getMinuteList()[row], isShowUnit ? "分" : "")
             }
-        
+            
         case .pickerTime: //时分
             if component == 0 {
-                label.text = String(format: "%02d 时", DateList.getHourList()[row])
+                label.text = String(format: "%02d %@", DateList.getHourList()[row], isShowUnit ? "时" : "")
             }
             if component == 1 {
-                label.text = String(format: "%02d 分", DateList.getMinuteList()[row])
+                label.text = String(format: "%02d %@", DateList.getMinuteList()[row], isShowUnit ? "分" : "")
             }
-    
+            
         }
         return label
     }
@@ -353,7 +356,7 @@ public class DatePickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSourc
             if component == 4 {
                 minute = DateList.getMinuteList()[row]
             }
-       
+            
         case .pickerMonthDay: //月日
             if component == 0 {
                 month = DateList.getMonthList()[row]
@@ -387,7 +390,7 @@ public class DatePickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSourc
             if component == 3 {
                 minute = DateList.getMinuteList()[row]
             }
-        
+            
         case .pickerTime: //时分
             if component == 0 {
                 hour = DateList.getHourList()[row]
@@ -399,7 +402,7 @@ public class DatePickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSourc
         
         let date = Date(year: year, month: month, day: day, hour: hour, minute: minute)
         pickerCallBack?(date)
-
+        
     }
     
     func getDayList() -> [Int] {
@@ -417,7 +420,7 @@ public class DatePickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSourc
 
 
 struct DateList {
-
+    
     static func getMonthList() -> [Int]{
         return [01,02,03,04,05,06,07,08,09,10,
                 11,12]
@@ -446,22 +449,22 @@ struct DateList {
                 40,41,42,43,44,45,46,47,48,49,
                 50,51,52,53,54,55,56,57,58,59]
     }
-
+    
     static func getDaysInMonth( year: Int, month: Int) -> Int{
         let calendar = Calendar.current
         var startComps = DateComponents()
         startComps.day = 1
         startComps.month = month
         startComps.year = year
-         
+        
         var endComps = DateComponents()
         endComps.day = 1
         endComps.month = month == 12 ? 1 : month + 1
         endComps.year = month == 12 ? year + 1 : year
-         
+        
         let startDate = calendar.date(from: startComps)!
         let endDate = calendar.date(from:endComps)!
-         
+        
         let diff = calendar.dateComponents([.day], from: startDate, to: endDate)
         return diff.day!
     }

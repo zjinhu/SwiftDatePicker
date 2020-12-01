@@ -43,11 +43,12 @@ class ViewController: UIViewController {
     }
 
     @objc func action(){
-        DatePickerVC.showPicker(pickerType: .pickerDate) { (date) in
-            print("\(String(describing: date))")
+        StartEndTimePickerVC.showPicker { (start, end) in
+            print("\(String(describing: start))--\(String(describing: end))")
         } dismissCallBack: {
             print("close")
         }
+
     }
     
     @objc func action2(){
