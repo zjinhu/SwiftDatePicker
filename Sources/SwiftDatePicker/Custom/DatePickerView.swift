@@ -221,7 +221,7 @@ public class DatePickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSourc
         label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.5
-        label.textColor = .black
+        label.textColor = DatePicker.pickerTextColor ?? .black
         switch pickerType {
         case .pickerDate: //年月日
             if component == 0 {
