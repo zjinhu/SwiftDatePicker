@@ -57,7 +57,7 @@ public class StartEndTimePickerVC: UIViewController, PresentedViewType{
         let lab = UILabel()
         lab.text = "到"
         lab.font = .systemFont(ofSize: 16)
-        lab.textColor = .black
+        lab.textColor = DatePicker.pickerTextColor ?? .black
         return lab
     }()
     
@@ -65,7 +65,7 @@ public class StartEndTimePickerVC: UIViewController, PresentedViewType{
         let lab = UILabel()
         lab.text = ":"
         lab.font = .systemFont(ofSize: 16)
-        lab.textColor = .black
+        lab.textColor = DatePicker.pickerTextColor ?? .black
         return lab
     }()
     
@@ -73,7 +73,7 @@ public class StartEndTimePickerVC: UIViewController, PresentedViewType{
         let lab = UILabel()
         lab.text = ":"
         lab.font = .systemFont(ofSize: 16)
-        lab.textColor = .black
+        lab.textColor = DatePicker.pickerTextColor ?? .black
         return lab
     }()
     
