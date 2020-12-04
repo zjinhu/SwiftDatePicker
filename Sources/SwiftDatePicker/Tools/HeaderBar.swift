@@ -32,8 +32,8 @@ public class HeaderBar: UIView {
         rightString = right
         switch barStyle{
         case .titleLeft:
-            leftButton.contentHorizontalAlignment = .center
-            rightButton.contentHorizontalAlignment = .center
+            leftButton.contentHorizontalAlignment = .trailing
+            rightButton.contentHorizontalAlignment = .trailing
         case .titleCenter:
             leftButton.contentHorizontalAlignment = .leading
             rightButton.contentHorizontalAlignment = .trailing
