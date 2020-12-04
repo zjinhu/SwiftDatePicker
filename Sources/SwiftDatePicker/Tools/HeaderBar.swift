@@ -30,7 +30,14 @@ public class HeaderBar: UIView {
         titleString = title
         leftString = left
         rightString = right
-        
+        switch barStyle{
+        case .titleLeft:
+            leftButton.contentHorizontalAlignment = .center
+            rightButton.contentHorizontalAlignment = .center
+        case .titleCenter:
+            leftButton.contentHorizontalAlignment = .leading
+            rightButton.contentHorizontalAlignment = .trailing
+        }
         setupViews()
     }
 
@@ -77,7 +84,7 @@ public class HeaderBar: UIView {
         rightButton.snp.makeConstraints { (m) in
             m.centerY.equalToSuperview()
             m.right.equalToSuperview().offset(-20)
-            m.width.equalTo(50)
+            m.width.equalTo(60)
             m.height.equalTo(40)
         }
         
@@ -93,7 +100,7 @@ public class HeaderBar: UIView {
         
         leftButton.snp.makeConstraints { (m) in
             m.centerY.equalToSuperview()
-            m.width.equalTo(50)
+            m.width.equalTo(60)
             m.height.equalTo(40)
             switch barStyle{
             case .titleLeft:
