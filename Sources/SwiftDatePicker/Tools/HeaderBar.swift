@@ -16,10 +16,7 @@ public enum BarStyle {
 public class HeaderBar: UIView {
 
     fileprivate var barStyle: BarStyle = .titleCenter
-    fileprivate var titleString: String = ""
-    fileprivate var leftString: String = ""
-    fileprivate var rightString: String = ""
-    
+
     public var leftCallBack : (() -> Void)?
     public var rightCallBack : (() -> Void)?
     
@@ -27,9 +24,7 @@ public class HeaderBar: UIView {
         self.init()
         
         barStyle = style
-        titleString = title
-        leftString = left
-        rightString = right
+
         switch barStyle{
         case .titleLeft:
             leftButton.contentHorizontalAlignment = .trailing
@@ -38,6 +33,48 @@ public class HeaderBar: UIView {
             leftButton.contentHorizontalAlignment = .leading
             rightButton.contentHorizontalAlignment = .trailing
         }
+        
+        leftButton.titleLabel?.font = HeadBar.buttonFont ?? .systemFont(ofSize: 16)
+        leftButton.setTitleColor(HeadBar.barButtonColor ?? .black, for: .normal)
+        leftButton.setTitleColor(.lightGray, for: .highlighted)
+        
+        rightButton.titleLabel?.font = HeadBar.buttonFont ?? .systemFont(ofSize: 16)
+        rightButton.setTitleColor(HeadBar.barButtonColor ?? .black, for: .normal)
+        rightButton.setTitleColor(.lightGray, for: .highlighted)
+        
+        titleLabel.text = title
+        leftButton.setTitle(left, for: .normal)
+        rightButton.setTitle(right, for: .normal)
+        
+        setupViews()
+    }
+    
+    public convenience init(style: BarStyle,
+                            title: String,
+                            leftNor: UIImage?,
+                            rightNor: UIImage?,
+                            leftHig: UIImage?,
+                            rightHig: UIImage?) {
+        self.init()
+        
+        barStyle = style
+
+        switch barStyle{
+        case .titleLeft:
+            leftButton.contentHorizontalAlignment = .trailing
+            rightButton.contentHorizontalAlignment = .trailing
+        case .titleCenter:
+            leftButton.contentHorizontalAlignment = .leading
+            rightButton.contentHorizontalAlignment = .trailing
+        }
+        
+        titleLabel.text = title
+        
+        leftButton.setImage(leftNor, for: .normal)
+        leftButton.setImage(leftHig, for: .highlighted)
+        rightButton.setImage(rightNor, for: .normal)
+        rightButton.setImage(rightHig, for: .highlighted)
+        
         setupViews()
     }
 
@@ -53,18 +90,12 @@ public class HeaderBar: UIView {
     
     fileprivate lazy var leftButton : UIButton = {
         let b = UIButton()
-        b.titleLabel?.font = HeadBar.buttonFont ?? .systemFont(ofSize: 16)
-        b.setTitleColor(HeadBar.barButtonColor ?? .black, for: .normal)
-        b.setTitleColor(.lightGray, for: .highlighted)
         b.addTarget(self, action: #selector(leftAction), for: .touchUpInside)
         return b
     }()
     
     fileprivate lazy var rightButton : UIButton = {
         let b = UIButton()
-        b.titleLabel?.font = HeadBar.buttonFont ?? .systemFont(ofSize: 16)
-        b.setTitleColor(HeadBar.barButtonColor ?? .black, for: .normal)
-        b.setTitleColor(.lightGray, for: .highlighted)
         b.addTarget(self, action: #selector(rightAction), for: .touchUpInside)
         return b
     }()
@@ -72,10 +103,6 @@ public class HeaderBar: UIView {
     func setupViews(){
         
         backgroundColor = HeadBar.barColor ?? .white
-        
-        titleLabel.text = titleString
-        leftButton.setTitle(leftString, for: .normal)
-        rightButton.setTitle(rightString, for: .normal)
         
         addSubview(titleLabel)
         addSubview(leftButton)
