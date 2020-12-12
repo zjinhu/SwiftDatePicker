@@ -100,7 +100,6 @@ public class HeaderBar: UIView {
         rightButton.snp.makeConstraints { (m) in
             m.centerY.equalToSuperview()
             m.right.equalToSuperview().offset(-20)
-            m.width.greaterThanOrEqualTo(40)
             m.height.equalTo(40)
         }
         
@@ -116,7 +115,6 @@ public class HeaderBar: UIView {
         
         leftButton.snp.makeConstraints { (m) in
             m.centerY.equalToSuperview()
-            m.width.greaterThanOrEqualTo(40)
             m.height.equalTo(40)
             switch barStyle{
             case .titleLeft:
