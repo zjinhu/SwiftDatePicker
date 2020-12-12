@@ -20,7 +20,10 @@ public class HeaderBar: UIView {
     public var leftCallBack : (() -> Void)?
     public var rightCallBack : (() -> Void)?
     
-    public convenience init(style: BarStyle, title: String, left: String, right: String) {
+    public convenience init(style: BarStyle,
+                            title: String,
+                            left: String,
+                            right: String) {
         self.init()
         
         barStyle = style
@@ -44,8 +47,8 @@ public class HeaderBar: UIView {
                             title: String,
                             leftNor: UIImage?,
                             rightNor: UIImage?,
-                            leftHig: UIImage?,
-                            rightHig: UIImage?) {
+                            leftHig: UIImage? = nil,
+                            rightHig: UIImage? = nil) {
         self.init()
         
         barStyle = style
@@ -53,9 +56,13 @@ public class HeaderBar: UIView {
         titleLabel.text = title
         
         leftButton.setImage(leftNor, for: .normal)
-        leftButton.setImage(leftHig, for: .highlighted)
+        if let lh = leftHig{
+            leftButton.setImage(lh, for: .highlighted)
+        }
         rightButton.setImage(rightNor, for: .normal)
-        rightButton.setImage(rightHig, for: .highlighted)
+        if let rh = leftHig{
+            rightButton.setImage(rh, for: .highlighted)
+        }
         
         setupViews()
     }
