@@ -25,15 +25,6 @@ public class HeaderBar: UIView {
         
         barStyle = style
 
-        switch barStyle{
-        case .titleLeft:
-            leftButton.contentHorizontalAlignment = .trailing
-            rightButton.contentHorizontalAlignment = .trailing
-        case .titleCenter:
-            leftButton.contentHorizontalAlignment = .leading
-            rightButton.contentHorizontalAlignment = .trailing
-        }
-        
         leftButton.titleLabel?.font = HeadBar.buttonFont ?? .systemFont(ofSize: 16)
         leftButton.setTitleColor(HeadBar.barButtonColor ?? .black, for: .normal)
         leftButton.setTitleColor(.lightGray, for: .highlighted)
@@ -59,15 +50,6 @@ public class HeaderBar: UIView {
         
         barStyle = style
 
-        switch barStyle{
-        case .titleLeft:
-            leftButton.contentHorizontalAlignment = .trailing
-            rightButton.contentHorizontalAlignment = .trailing
-        case .titleCenter:
-            leftButton.contentHorizontalAlignment = .leading
-            rightButton.contentHorizontalAlignment = .trailing
-        }
-        
         titleLabel.text = title
         
         leftButton.setImage(leftNor, for: .normal)
