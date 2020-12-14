@@ -14,12 +14,11 @@ public class UIDatePickerVC: UIViewController, PresentedViewType {
     fileprivate var dismissCallBack : CloseClosure?
     fileprivate var pickerCallBack : PickerClosure?
     fileprivate var pickerDate: Date = Date.current()
+
+    fileprivate var barConfig: HeadBar!
     
     lazy var header: HeaderBar = {
-        let v = HeaderBar(style: HeadBar.barStyle ?? .titleCenter,
-                          title: HeadBar.titleString ?? "选择日期",
-                          left: HeadBar.leftString ?? "取消",
-                          right: HeadBar.rightString ?? "确定")
+        let v = HeaderBar(barConfig)
 
         v.leftCallBack = { [weak self] in
             guard let `self` = self else{ return }
@@ -66,7 +65,7 @@ public class UIDatePickerVC: UIViewController, PresentedViewType {
         view.addSubview(header)
         header.snp.makeConstraints { (m) in
             m.top.left.right.equalToSuperview()
-            m.height.equalTo(HeadBar.barHeight ?? 45)
+            m.height.equalTo(barConfig.barHeight ?? 45)
         }
          
         view.addSubview(picker)
@@ -86,10 +85,14 @@ public class UIDatePickerVC: UIViewController, PresentedViewType {
     }
     
     public static func showPicker(mode: UIDatePicker.Mode,
+                                  headConfig: HeadBarConfig,
                                   dateCallBack: @escaping PickerClosure,
                                   dismissCallBack: @escaping CloseClosure){
         
+        let bar = HeadBar()
+        headConfig(bar)
         let vc = UIDatePickerVC(mode: mode)
+        vc.barConfig = bar
         vc.pickerCallBack = dateCallBack
         vc.dismissCallBack = dismissCallBack
         var component = PresentedViewComponent(contentSize: CGSize(width: DatePicker.pickerWidth ?? UIScreen.main.bounds.width, height: DatePicker.pickerHeight ?? 300))

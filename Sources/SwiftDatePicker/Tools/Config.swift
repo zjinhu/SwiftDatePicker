@@ -10,6 +10,7 @@ import UIKit
 public typealias CloseClosure = () -> Void
 public typealias PickerClosure = (Date) -> Void
 public typealias TimeIntervalClosure = (Date, Date) -> Void
+public typealias HeadBarConfig = (_ config: HeadBar) -> Void
 
 public struct DatePicker {
     public static var pickerFont: UIFont?
@@ -23,23 +24,31 @@ public struct DatePicker {
     public static var maxYear: Int?
 }
 
-public struct HeadBar {
-    public static var barStyle: BarStyle?
+public class HeadBar {
+    public var barStyle: BarStyle = .titleCenter
 
-    public static var barColor: UIColor?
-    public static var barHeight: CGFloat?
+    public var barColor: UIColor?
+    public var barHeight: CGFloat?
     
-    public static var titleFont: UIFont?
-    public static var buttonFont: UIFont?
+    public var titleFont: UIFont?
+    public var buttonFont: UIFont?
     
-    public static var titleString: String?
-    public static var leftString: String?
-    public static var rightString: String?
-
-    public static var barTitleColor: UIColor?
-    public static var barButtonColor: UIColor?
+    public var titleString: String?
+    public var leftString: String?
+    public var rightString: String?
     
+    public var leftNorImage: UIImage?
+    public var rightNorImage: UIImage?
+    public var leftHigImage: UIImage?
+    public var rightHigImage: UIImage?
+    
+    public var barTitleColor: UIColor?
+    public var barButtonColor: UIColor?
+    
+    public var leftWidth: CGFloat?
+    public var rightWidth: CGFloat?
 }
+
 
 extension Date {
     public static func current() -> Date{

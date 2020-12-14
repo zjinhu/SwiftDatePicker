@@ -16,12 +16,9 @@ public class StartEndTimePickerVC: UIViewController, PresentedViewType{
     
     fileprivate var startDate: Date = Date.current()
     fileprivate var endDate: Date = Date.current()
-    
+    fileprivate var barConfig: HeadBar!
     lazy var header: HeaderBar = {
-        let v = HeaderBar(style: HeadBar.barStyle ?? .titleCenter,
-                          title: "选择时间",
-                          left: HeadBar.leftString ?? "取消",
-                          right: HeadBar.rightString ?? "确定")
+        let v = HeaderBar(barConfig)
         
         v.leftCallBack = { [weak self] in
             guard let `self` = self else{ return }
@@ -88,7 +85,7 @@ public class StartEndTimePickerVC: UIViewController, PresentedViewType{
         view.addSubview(header)
         header.snp.makeConstraints { (m) in
             m.top.left.right.equalToSuperview()
-            m.height.equalTo(HeadBar.barHeight ?? 45)
+            m.height.equalTo(barConfig.barHeight ?? 45)
         }
         
         view.addSubview(leftLabel)
@@ -127,9 +124,13 @@ public class StartEndTimePickerVC: UIViewController, PresentedViewType{
     }
     
     
-    public static func showPicker(dateCallBack: @escaping TimeIntervalClosure,
+    public static func showPicker(headConfig: HeadBarConfig,
+                                  dateCallBack: @escaping TimeIntervalClosure,
                                   dismissCallBack: @escaping CloseClosure){
+        let bar = HeadBar()
+        headConfig(bar)
         let vc = StartEndTimePickerVC()
+        vc.barConfig = bar
         vc.pickerCallBack = dateCallBack
         vc.dismissCallBack = dismissCallBack
         var component = PresentedViewComponent(contentSize: CGSize(width: DatePicker.pickerWidth ?? UIScreen.main.bounds.width, height: DatePicker.pickerHeight ?? 300))

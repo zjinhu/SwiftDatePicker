@@ -12,9 +12,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        HeadBar.titleString = "选择日期/时间"
-        HeadBar.barColor = .orange
-        
+
         let pick = DatePickerView(type: .pickerDateHourMinute, minYear: 1999, maxYear: 2030) { (date) in
             print("\(date)")
         }
@@ -43,7 +41,13 @@ class ViewController: UIViewController {
     }
 
     @objc func action(){
-        StartEndTimePickerVC.showPicker { (start, end) in
+
+        StartEndTimePickerVC.showPicker { (bar) in
+            bar.titleString = "选择时间"
+            bar.barColor = .orange
+            bar.leftString = "123123123"
+            bar.rightString = "1212313213"
+        } dateCallBack: { (start, end) in
             print("\(String(describing: start))--\(String(describing: end))")
         } dismissCallBack: {
             print("close")
@@ -52,7 +56,13 @@ class ViewController: UIViewController {
     }
     
     @objc func action2(){
-        UIDatePickerVC.showPicker(mode: .dateAndTime) { (date) in
+
+        UIDatePickerVC.showPicker(mode: .dateAndTime) { (bar) in
+            bar.titleString = "选择日期"
+            bar.barColor = .orange
+            bar.leftNorImage = UIImage(named: "image_cancle")
+            bar.rightNorImage = UIImage(named: "image_done")
+        } dateCallBack: { (date) in
             print("\(String(describing: date))")
         } dismissCallBack: {
             print("close")

@@ -13,64 +13,52 @@ public enum BarStyle {
     case titleCenter
     case titleLeft
 }
+
 public class HeaderBar: UIView {
 
-    fileprivate var barStyle: BarStyle = .titleCenter
+    fileprivate var barConfig: HeadBar!
 
     public var leftCallBack : (() -> Void)?
     public var rightCallBack : (() -> Void)?
     
-    public convenience init(style: BarStyle,
-                            title: String,
-                            left: String,
-                            right: String) {
+    public convenience init(_ config: HeadBarConfig) {
         self.init()
-        
-        barStyle = style
-
-        leftButton.titleLabel?.font = HeadBar.buttonFont ?? .systemFont(ofSize: 16)
-        leftButton.setTitleColor(HeadBar.barButtonColor ?? .black, for: .normal)
-        leftButton.setTitleColor(.lightGray, for: .highlighted)
-        
-        rightButton.titleLabel?.font = HeadBar.buttonFont ?? .systemFont(ofSize: 16)
-        rightButton.setTitleColor(HeadBar.barButtonColor ?? .black, for: .normal)
-        rightButton.setTitleColor(.lightGray, for: .highlighted)
-        
-        titleLabel.text = title
-        leftButton.setTitle(left, for: .normal)
-        rightButton.setTitle(right, for: .normal)
-        
-        setupViews()
+        let bar = HeadBar()
+        config(bar)
+        barConfig = bar
+        setupStyle()
     }
     
-    public convenience init(style: BarStyle,
-                            title: String,
-                            leftNor: UIImage?,
-                            rightNor: UIImage?,
-                            leftHig: UIImage? = nil,
-                            rightHig: UIImage? = nil) {
+    public convenience init(_ bar: HeadBar) {
         self.init()
+        barConfig = bar
+        setupStyle()
+    }
+    
+    func setupStyle(){
+        titleLabel.text = barConfig.titleString
         
-        barStyle = style
+        leftButton.titleLabel?.font = barConfig.buttonFont ?? .systemFont(ofSize: 16)
+        leftButton.setTitleColor(barConfig.barButtonColor ?? .black, for: .normal)
+        leftButton.setTitleColor(.lightGray, for: .highlighted)
+        leftButton.setTitle(barConfig.leftString, for: .normal)
+        leftButton.setImage(barConfig.leftNorImage, for: .normal)
+        leftButton.setImage(barConfig.leftHigImage, for: .highlighted)
 
-        titleLabel.text = title
-        
-        leftButton.setImage(leftNor, for: .normal)
-        if let lh = leftHig{
-            leftButton.setImage(lh, for: .highlighted)
-        }
-        rightButton.setImage(rightNor, for: .normal)
-        if let rh = leftHig{
-            rightButton.setImage(rh, for: .highlighted)
-        }
+        rightButton.titleLabel?.font = barConfig.buttonFont ?? .systemFont(ofSize: 16)
+        rightButton.setTitleColor(barConfig.barButtonColor ?? .black, for: .normal)
+        rightButton.setTitleColor(.lightGray, for: .highlighted)
+        rightButton.setTitle(barConfig.rightString, for: .normal)
+        rightButton.setImage(barConfig.rightNorImage, for: .normal)
+        rightButton.setImage(barConfig.rightHigImage, for: .highlighted)
         
         setupViews()
     }
 
     fileprivate lazy var titleLabel: UILabel = {
         let lab = UILabel()
-        lab.font = HeadBar.titleFont ?? .systemFont(ofSize: 16)
-        lab.textColor = HeadBar.barTitleColor ?? .black
+        lab.font = barConfig.titleFont ?? .systemFont(ofSize: 16)
+        lab.textColor = barConfig.barTitleColor ?? .black
         lab.numberOfLines = 0
         lab.adjustsFontSizeToFitWidth = true
         lab.minimumScaleFactor = 0.5
@@ -91,7 +79,7 @@ public class HeaderBar: UIView {
     
     func setupViews(){
         
-        backgroundColor = HeadBar.barColor ?? .white
+        backgroundColor = barConfig.barColor ?? .white
         
         addSubview(titleLabel)
         addSubview(leftButton)
@@ -101,11 +89,14 @@ public class HeaderBar: UIView {
             m.centerY.equalToSuperview()
             m.right.equalToSuperview().offset(-20)
             m.height.equalTo(40)
+            if let w = barConfig?.rightWidth, w > 0 {
+                m.width.equalTo(w)
+            }
         }
         
         titleLabel.snp.makeConstraints { (m) in
             m.centerY.equalToSuperview()
-            switch barStyle{
+            switch barConfig.barStyle{
             case .titleLeft:
                 m.left.equalToSuperview().offset(20)
             case .titleCenter:
@@ -116,7 +107,10 @@ public class HeaderBar: UIView {
         leftButton.snp.makeConstraints { (m) in
             m.centerY.equalToSuperview()
             m.height.equalTo(40)
-            switch barStyle{
+            if let w = barConfig.leftWidth, w > 0 {
+                m.width.equalTo(w)
+            }
+            switch barConfig.barStyle{
             case .titleLeft:
                 m.right.equalTo(rightButton.snp.left).offset(-10)
             case .titleCenter:
