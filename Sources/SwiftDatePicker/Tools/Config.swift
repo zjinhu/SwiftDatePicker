@@ -6,7 +6,6 @@
 //
 
 import UIKit
-
 public typealias CloseClosure = () -> Void
 public typealias PickerClosure = (Date) -> Void
 public typealias TimeIntervalClosure = (Date, Date) -> Void
@@ -48,7 +47,6 @@ public class HeadBar {
     public var leftWidth: CGFloat?
     public var rightWidth: CGFloat?
 }
-
 
 extension Date {
     public static func current() -> Date{
