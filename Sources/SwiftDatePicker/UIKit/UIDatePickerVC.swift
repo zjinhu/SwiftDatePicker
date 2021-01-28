@@ -38,7 +38,6 @@ public class UIDatePickerVC: UIViewController, PresentedViewType {
     
     fileprivate lazy var picker: UIDatePicker = {
         let p = UIDatePicker()
-        p.timeZone = TimeZone.init(identifier: "CCD")
         p.locale = Locale(identifier: "zh_CN")
         p.setValue(DatePicker.pickerTextColor ?? .black, forKey: "textColor")
 
@@ -79,8 +78,7 @@ public class UIDatePickerVC: UIViewController, PresentedViewType {
     
     @objc fileprivate func dateChanged(datePicker : UIDatePicker){
         let calendar = Calendar.current
-        var comp = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: datePicker.date)
-        comp.timeZone = TimeZone(secondsFromGMT: 0)
+        let comp = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: datePicker.date)
         pickerDate = calendar.date(from: comp) ?? Date.current()
     }
     

@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "SwiftDatePicker"
-  s.version      = "1.0.7"
+  s.version      = "1.0.8"
   s.summary      = "A short description of SwiftDatePicker."
 
   s.homepage         = 'https://github.com/jackiehu/SwiftDatePicker'
