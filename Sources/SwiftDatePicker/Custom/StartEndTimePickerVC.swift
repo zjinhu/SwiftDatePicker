@@ -14,8 +14,8 @@ public class StartEndTimePickerVC: UIViewController, PresentedViewType{
     fileprivate var dismissCallBack : CloseClosure?
     fileprivate var pickerCallBack : TimeIntervalClosure?
     
-    fileprivate var startDate: Date = Date.current()
-    fileprivate var endDate: Date = Date.current()
+    fileprivate var startDate: Date = Date()
+    fileprivate var endDate: Date = Date()
     fileprivate var barConfig: HeadBar!
     lazy var header: HeaderBar = {
         let v = HeaderBar(barConfig)

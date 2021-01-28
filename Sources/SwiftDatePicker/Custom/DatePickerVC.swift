@@ -15,7 +15,7 @@ public class DatePickerVC: UIViewController, PresentedViewType{
     fileprivate var pickerCallBack : PickerClosure?
     
     fileprivate var pickView: DatePickerView?
-    fileprivate var pickerDate: Date = Date.current()
+    fileprivate var pickerDate: Date = Date()
     fileprivate var barConfig: HeadBar!
     
     lazy var header: HeaderBar = {
@@ -40,8 +40,8 @@ public class DatePickerVC: UIViewController, PresentedViewType{
     public convenience init(pickerType: DatePickerStyle) {
         self.init()
         pickView = DatePickerView(type: pickerType,
-                                  minYear: DatePicker.minYear ?? Date.current().year,
-                                  maxYear: DatePicker.maxYear ?? Date.current().year + 5,
+                                  minYear: DatePicker.minYear ?? Date().year,
+                                  maxYear: DatePicker.maxYear ?? Date().year + 5,
                                   callBack: { [weak self] (date) in
             guard let `self` = self else{ return }
             self.pickerDate = date

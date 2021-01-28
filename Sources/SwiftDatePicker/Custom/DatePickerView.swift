@@ -20,11 +20,11 @@ public enum DatePickerStyle {
 
 public class DatePickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource{
     
-    fileprivate var year: Int = Date.current().year
-    fileprivate var month: Int = Date.current().month
+    fileprivate var year: Int = Date().year
+    fileprivate var month: Int = Date().month
     fileprivate var day: Int = Date.current().day
     fileprivate var hour: Int = Date.current().hour
-    fileprivate var minute: Int = Date.current().minute
+    fileprivate var minute: Int = Date().minute
     
     fileprivate var pickerType: DatePickerStyle = .pickerDate
     
@@ -36,8 +36,8 @@ public class DatePickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSourc
     fileprivate var pickerCallBack : PickerClosure?
     
     public convenience init(type: DatePickerStyle,
-                            minYear: Int = Date.current().year,
-                            maxYear: Int = Date.current().year + 5,
+                            minYear: Int = Date().year,
+                            maxYear: Int = Date().year + 5,
                             showUnit: Bool = true,
                             callBack: @escaping PickerClosure){
         self.init()
@@ -400,7 +400,14 @@ public class DatePickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSourc
             }
         }
         
-        let date = Date(year: year, month: month, day: day, hour: hour, minute: minute)
+        let calendar = Calendar.current
+        var components = DateComponents() 
+        components.year = year
+        components.month = month
+        components.day = day
+        components.hour = hour
+        components.minute = minute
+        let date =  calendar.date(from: components)!
         pickerCallBack?(date)
         
     }
@@ -467,5 +474,15 @@ struct DateList {
         
         let diff = calendar.dateComponents([.day], from: startDate, to: endDate)
         return diff.day!
+    }
+}
+
+extension Date {
+    static func current() -> Date{
+        let calendar = Calendar.current
+        var comp = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: Date())
+        comp.timeZone = TimeZone(secondsFromGMT: 0)
+        let currentDate = calendar.date(from: comp)
+        return currentDate ?? Date()
     }
 }

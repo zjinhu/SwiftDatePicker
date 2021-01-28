@@ -13,7 +13,7 @@ public class UIDatePickerVC: UIViewController, PresentedViewType {
 
     fileprivate var dismissCallBack : CloseClosure?
     fileprivate var pickerCallBack : PickerClosure?
-    fileprivate var pickerDate: Date = Date.current()
+    fileprivate var pickerDate: Date = Date()
 
     fileprivate var barConfig: HeadBar!
     
@@ -79,7 +79,7 @@ public class UIDatePickerVC: UIViewController, PresentedViewType {
     @objc fileprivate func dateChanged(datePicker : UIDatePicker){
         let calendar = Calendar.current
         let comp = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: datePicker.date)
-        pickerDate = calendar.date(from: comp) ?? Date.current()
+        pickerDate = calendar.date(from: comp) ?? Date()
     }
     
     public static func showPicker(mode: UIDatePicker.Mode,

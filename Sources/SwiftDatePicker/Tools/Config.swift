@@ -48,11 +48,3 @@ public class HeadBar {
     public var rightWidth: CGFloat?
 }
 
-extension Date {
-    public static func current() -> Date{
-        let calendar = Calendar.current
-        let comp = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: Date())
-        let currentDate = calendar.date(from: comp)
-        return currentDate ?? Date()
-    }
-}
