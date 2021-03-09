@@ -6,25 +6,32 @@
 //
 
 import UIKit
-import SwiftDate
 import SnapKit
+
 public enum DatePickerStyle {
-    case pickerDate //年月日
-    case pickerDateHour //年月日时
-    case pickerDateHourMinute //年月日时分
-    case pickerMonthDay //月日
-    case pickerMonthDayHour //月日时
-    case pickerMonthDayHourMinute //月日时分
-    case pickerTime //时分
+    ///年月日
+    case pickerDate
+    ///年月日时
+    case pickerDateHour
+    ///年月日时分
+    case pickerDateHourMinute
+    ///月日
+    case pickerMonthDay
+    ///月日时
+    case pickerMonthDayHour
+    ///月日时分
+    case pickerMonthDayHourMinute
+    ///时分
+    case pickerTime
 }
 
 public class DatePickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource{
     
-    fileprivate var year: Int = Date().year
-    fileprivate var month: Int = Date().month
-    fileprivate var day: Int = Date.current().day
-    fileprivate var hour: Int = Date.current().hour
-    fileprivate var minute: Int = Date().minute
+    fileprivate var year: Int = Date().getYear()
+    fileprivate var month: Int = Date().getMonth()
+    fileprivate var day: Int = Date().getDay()
+    fileprivate var hour: Int = Date().getHour()
+    fileprivate var minute: Int = Date().getMinute()
     
     fileprivate var pickerType: DatePickerStyle = .pickerDate
     
@@ -35,9 +42,17 @@ public class DatePickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSourc
     public typealias PickerClosure = (Date) -> Void
     fileprivate var pickerCallBack : PickerClosure?
     
+    
+    /// 初始化DatePickerView
+    /// - Parameters:
+    ///   - type: DatePickerStyle样式
+    ///   - minYear: 滚轮最小年份(不需要选择年费可不加)
+    ///   - maxYear: 滚轮最大年份(不需要选择年费可不加)
+    ///   - showUnit: 是否显示单位(年月日等)
+    ///   - callBack: 回调Date
     public convenience init(type: DatePickerStyle,
-                            minYear: Int = Date().year,
-                            maxYear: Int = Date().year + 5,
+                            minYear: Int = Date().getYear(),
+                            maxYear: Int = Date().getYear() + 5,
                             showUnit: Bool = true,
                             callBack: @escaping PickerClosure){
         self.init()
@@ -426,63 +441,3 @@ public class DatePickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSourc
 }
 
 
-struct DateList {
-    
-    static func getMonthList() -> [Int]{
-        return [01,02,03,04,05,06,07,08,09,10,
-                11,12]
-    }
-    
-    static func getDayList(year: Int, month: Int) -> [Int]{
-        let array = [01,02,03,04,05,06,07,08,09,10,
-                     11,12,13,14,15,16,17,18,19,20,
-                     21,22,23,24,25,26,27,28,29,30,31]
-        let range = getDaysInMonth(year: year, month: month)
-        let rangeArray = array[0..<range]
-        return Array(rangeArray)
-    }
-    
-    static func getHourList() -> [Int]{
-        return [00,01,02,03,04,05,06,07,08,09,
-                10,11,12,13,14,15,16,17,18,19,
-                20,21,22,23]
-    }
-    
-    static func getMinuteList() -> [Int]{
-        return [00,01,02,03,04,05,06,07,08,09,
-                10,11,12,13,14,15,16,17,18,19,
-                20,21,22,23,24,25,26,27,28,29,
-                30,31,32,33,34,35,36,37,38,39,
-                40,41,42,43,44,45,46,47,48,49,
-                50,51,52,53,54,55,56,57,58,59]
-    }
-    
-    static func getDaysInMonth( year: Int, month: Int) -> Int{
-        let calendar = Calendar.current
-        var startComps = DateComponents()
-        startComps.day = 1
-        startComps.month = month
-        startComps.year = year
-        
-        var endComps = DateComponents()
-        endComps.day = 1
-        endComps.month = month == 12 ? 1 : month + 1
-        endComps.year = month == 12 ? year + 1 : year
-        
-        let startDate = calendar.date(from: startComps)!
-        let endDate = calendar.date(from:endComps)!
-        
-        let diff = calendar.dateComponents([.day], from: startDate, to: endDate)
-        return diff.day!
-    }
-}
-
-extension Date {
-    static func current() -> Date{
-        let calendar = Calendar.current
-        var comp = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: Date())
-        comp.timeZone = TimeZone(secondsFromGMT: 0)
-        let currentDate = calendar.date(from: comp)
-        return currentDate ?? Date()
-    }
-}

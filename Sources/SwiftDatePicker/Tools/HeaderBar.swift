@@ -39,15 +39,15 @@ public class HeaderBar: UIView {
         titleLabel.text = barConfig.titleString
         
         leftButton.titleLabel?.font = barConfig.buttonFont ?? .systemFont(ofSize: 16)
-        leftButton.setTitleColor(barConfig.barButtonColor ?? .black, for: .normal)
-        leftButton.setTitleColor(.lightGray, for: .highlighted)
+        leftButton.setTitleColor(barConfig.leftNorColor ?? .black, for: .normal)
+        leftButton.setTitleColor(barConfig.leftHigColor ?? .lightGray, for: .highlighted)
         leftButton.setTitle(barConfig.leftString, for: .normal)
         leftButton.setImage(barConfig.leftNorImage, for: .normal)
         leftButton.setImage(barConfig.leftHigImage, for: .highlighted)
 
         rightButton.titleLabel?.font = barConfig.buttonFont ?? .systemFont(ofSize: 16)
-        rightButton.setTitleColor(barConfig.barButtonColor ?? .black, for: .normal)
-        rightButton.setTitleColor(.lightGray, for: .highlighted)
+        rightButton.setTitleColor(barConfig.rightNorColor ?? .black, for: .normal)
+        rightButton.setTitleColor(barConfig.rightHigColor ?? .lightGray, for: .highlighted)
         rightButton.setTitle(barConfig.rightString, for: .normal)
         rightButton.setImage(barConfig.rightNorImage, for: .normal)
         rightButton.setImage(barConfig.rightHigImage, for: .highlighted)

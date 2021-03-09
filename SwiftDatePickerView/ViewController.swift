@@ -6,9 +6,13 @@
 //
 
 import UIKit
-import SnapKit
-class ViewController: UIViewController {
+import SwiftBrick
+import Swift_Form
 
+class ViewController: JHTableViewController {
+    
+    lazy var former = Former(tableView: self.tableView!)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -20,40 +24,69 @@ class ViewController: UIViewController {
         view.addSubview(pick)
         pick.snp.makeConstraints { (m) in
             m.left.right.equalToSuperview()
-            m.bottom.equalToSuperview()
+            m.top.equalToSuperview().offset(50)
             m.height.equalTo(200)
         }
         
+        tableView?.snp.remakeConstraints({ (m) in
+            m.top.equalTo(pick.snp.bottom).offset(20)
+            m.left.right.equalToSuperview()
+            m.bottom.equalToSuperview()
+        })
         
-        //弹窗
-        let btn = UIButton(frame: .init(x: 0, y: 100, width: UIScreen.main.bounds.width, height: 60))
-        btn.setTitle("点击弹窗StartEndTimePickerVC", for: .normal)
-        btn.backgroundColor = .orange
-        btn.addTarget(self, action: #selector(action), for: .touchUpInside)
-        view.addSubview(btn)
+        let row1 = LabelRow()
+        row1.title = "点击弹窗StartEndTimePickerVC"
+        row1.cell.accessoryType = .disclosureIndicator
+        row1.cell.addDownLine()
+        row1.onSelected { [weak self](row) in
+            guard let `self` = self else {return}
+            self.action()
+            
+        }
         
-        //弹窗
-        let btn2 = UIButton(frame: .init(x: 0, y: 200, width: UIScreen.main.bounds.width, height: 60))
-        btn2.setTitle("点击弹窗UIDatePickerVC", for: .normal)
-        btn2.backgroundColor = .orange
-        btn2.addTarget(self, action: #selector(action2), for: .touchUpInside)
-        view.addSubview(btn2)
+        let row2 = LabelRow()
+        row2.title = "点击弹窗UIDatePickerVC"
+        row2.cell.accessoryType = .disclosureIndicator
+        row2.cell.addDownLine()
+        row2.onSelected { [weak self](row) in
+            guard let `self` = self else {return}
+            self.action2()
+            
+        }
         
-        //弹窗
-        let btn3 = UIButton(frame: .init(x: 0, y: 300, width: UIScreen.main.bounds.width, height: 60))
-        btn3.setTitle("点击弹窗DatePickerVC", for: .normal)
-        btn3.backgroundColor = .orange
-        btn3.addTarget(self, action: #selector(action3), for: .touchUpInside)
-        view.addSubview(btn3)
+        let row3 = LabelRow()
+        row3.title = "点击弹窗DatePickerVC"
+        row3.cell.accessoryType = .disclosureIndicator
+        row3.cell.addDownLine()
+        row3.onSelected { [weak self](row) in
+            guard let `self` = self else {return}
+            self.action3()
+            
+        }
+        
+        let row4 = LabelRow()
+        row4.title = "点击弹窗DatePickerVC"
+        row4.subTitle = "多种样式"
+        row4.cell.accessoryType = .disclosureIndicator
+        row4.cell.addDownLine()
+        row4.onSelected { [weak self](row) in
+            guard let `self` = self else {return}
+            self.action1()
+        }
+
+        let section = SectionFormer(row1, row2, row3, row4)
+        
+        former.append(sectionFormer: section)
+
     }
 
-    @objc func action(){
+    func action(){
 
         StartEndTimePickerVC.showPicker { (bar) in
             bar.titleString = "选择时间"
             bar.barColor = .orange
-            bar.leftString = "123123123"
-            bar.rightString = "1212313213"
+            bar.leftString = "左"
+            bar.rightString = "右"
         } dateCallBack: { (start, end) in
             print("\(String(describing: start))--\(String(describing: end))")
         } dismissCallBack: {
@@ -62,8 +95,28 @@ class ViewController: UIViewController {
 
     }
     
-    @objc func action2(){
+    func action1(){
 
+        DatePickerVC.showPicker(pickerType: .pickerMonthDayHour) { (bar) in
+            bar.titleString = "选择日期"
+            bar.barStyle = .titleLeft
+            bar.barColor = .orange
+            bar.leftNorImage = UIImage(named: "image_cancle")
+            bar.rightNorImage = UIImage(named: "image_done")
+            bar.leftWidth = 40
+            bar.rightWidth = 40
+        } dateCallBack: { (date) in
+            print("\(String(describing: date))")
+        } dismissCallBack: {
+            print("close")
+        }
+
+    }
+    
+    func action2(){
+        
+//        DatePicker.pickerBackColor = .systemPink
+        
         UIDatePickerVC.showPicker(mode: .dateAndTime) { (bar) in
             bar.titleString = "选择日期"
             bar.barColor = .orange
@@ -77,7 +130,7 @@ class ViewController: UIViewController {
 
     }
     
-    @objc func action3(){
+    func action3(){
 
         DatePickerVC.showPicker(pickerType: .pickerDateHourMinute) { (bar) in
             bar.titleString = "选择日期"

@@ -40,8 +40,8 @@ public class DatePickerVC: UIViewController, PresentedViewType{
     public convenience init(pickerType: DatePickerStyle) {
         self.init()
         pickView = DatePickerView(type: pickerType,
-                                  minYear: DatePicker.minYear ?? Date().year,
-                                  maxYear: DatePicker.maxYear ?? Date().year + 5,
+                                  minYear: DatePicker.minYear ?? Date().getYear(),
+                                  maxYear: DatePicker.maxYear ?? Date().getYear() + 5,
                                   callBack: { [weak self] (date) in
             guard let `self` = self else{ return }
             self.pickerDate = date
@@ -71,7 +71,12 @@ public class DatePickerVC: UIViewController, PresentedViewType{
         }
     }
 
-    
+    /// 弹出自定义DatePickerVC
+    /// - Parameters:
+    ///   - pickerType: DatePickerStyle的样式
+    ///   - headConfig: 顶部Bar适配器回调
+    ///   - dateCallBack: 选择日期回调
+    ///   - dismissCallBack: 收起视图回调
     public static func showPicker(pickerType: DatePickerStyle = .pickerDate,
                                   headConfig: HeadBarConfig,
                                   dateCallBack: @escaping PickerClosure,

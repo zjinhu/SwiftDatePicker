@@ -1,31 +1,59 @@
 PODS:
   - SnapKit (5.0.1)
-  - SwiftButton (1.0.2):
+  - Swift_Form (1.0.6):
     - SnapKit
-  - SwiftDate (6.2.0)
-  - SwiftShow/Class (0.3.5):
+  - SwiftBrick (1.8.5):
+    - SnapKit
+    - SwiftBrick/BaseCell (= 1.8.5)
+    - SwiftBrick/BaseVC (= 1.8.5)
+    - SwiftBrick/Extensions (= 1.8.5)
+    - SwiftBrick/Util (= 1.8.5)
+    - SwiftBrick/ViewFactory (= 1.8.5)
+  - SwiftBrick/BaseCell (1.8.5):
+    - SnapKit
+    - SwiftBrick/Extensions
+  - SwiftBrick/BaseVC (1.8.5):
+    - SnapKit
+    - SwiftBrick/BaseCell
+    - SwiftBrick/Extensions
+    - SwiftBrick/Util
+  - SwiftBrick/Extensions (1.8.5):
+    - SnapKit
+    - SwiftBrick/Util
+  - SwiftBrick/Util (1.8.5):
+    - SnapKit
+  - SwiftBrick/ViewFactory (1.8.5):
+    - SnapKit
+    - SwiftBrick/Extensions
+    - SwiftBrick/Util
+  - SwiftButton (1.1.0):
+    - SnapKit
+  - SwiftShow/Class (0.6.0):
     - SnapKit
     - SwiftButton
-  - SwiftShow/Presentation (0.3.5):
+  - SwiftShow/Presentation (0.6.0):
     - SwiftShow/Class
 
 DEPENDENCIES:
-  - SwiftDate
+  - Swift_Form
+  - SwiftBrick
   - SwiftShow/Presentation
 
 SPEC REPOS:
-  trunk:
+  https://github.com/CocoaPods/Specs.git:
     - SnapKit
+    - Swift_Form
+    - SwiftBrick
     - SwiftButton
-    - SwiftDate
     - SwiftShow
 
 SPEC CHECKSUMS:
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
-  SwiftButton: 10ef7a38c71f9c299a53428d4536e321fd1e31f4
-  SwiftDate: d117c3eb6beed72e47d3f4d1e3bc63fa1e66d7c3
-  SwiftShow: 1f559e6610cff1665907fbe0315202f71ac76dfc
+  Swift_Form: 65539d8cef741dc494a054aeb100f09ec5e561af
+  SwiftBrick: f1a67b7147a05ae6fa181c273cffdb42585c1f4f
+  SwiftButton: d6313f6082ffa5a86e27b6da09f2e1700441e420
+  SwiftShow: 6ca53d5a57475d83da7ec16efb32088a5bc14533
 
-PODFILE CHECKSUM: c8185c77e25e531d9ad9abc634acd9298ef93dd2
+PODFILE CHECKSUM: 9bd5865fb862baf1a74f2e688b67efdb65acd232
 
-COCOAPODS: 1.10.0.rc.1
+COCOAPODS: 1.10.1

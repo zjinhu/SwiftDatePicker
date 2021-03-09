@@ -20,6 +20,7 @@
 		81EBB5CE25401F0D00ED8B87 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81EBB5CC25401F0D00ED8B87 /* Main.storyboard */; };
 		81EBB5D025401F0E00ED8B87 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81EBB5CF25401F0E00ED8B87 /* Assets.xcassets */; };
 		81EBB5D325401F0E00ED8B87 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81EBB5D125401F0E00ED8B87 /* LaunchScreen.storyboard */; };
+		81F74AA825F726A5007CDB69 /* DateTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F74AA725F726A5007CDB69 /* DateTool.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		81EBB5CF25401F0E00ED8B87 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		81EBB5D225401F0E00ED8B87 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		81EBB5D425401F0E00ED8B87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		81F74AA725F726A5007CDB69 /* DateTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTool.swift; sourceTree = "<group>"; };
 		A1F9FE041540772B41FAC328 /* Pods-SwiftDatePickerView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftDatePickerView.debug.xcconfig"; path = "Target Support Files/Pods-SwiftDatePickerView/Pods-SwiftDatePickerView.debug.xcconfig"; sourceTree = "<group>"; };
 		A74624717ED5BDEAC8973FA3 /* Pods-SwiftDatePickerView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftDatePickerView.release.xcconfig"; path = "Target Support Files/Pods-SwiftDatePickerView/Pods-SwiftDatePickerView.release.xcconfig"; sourceTree = "<group>"; };
 		E7ED7F74D44F2740E303C4BC /* Pods_SwiftDatePickerView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftDatePickerView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -88,6 +90,7 @@
 			children = (
 				81BDE37D2546D7DD00F8130D /* Config.swift */,
 				811293AD25416FDE009F8856 /* HeaderBar.swift */,
+				81F74AA725F726A5007CDB69 /* DateTool.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -257,6 +260,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				811293B025416FDE009F8856 /* HeaderBar.swift in Sources */,
+				81F74AA825F726A5007CDB69 /* DateTool.swift in Sources */,
 				81EBB5CB25401F0D00ED8B87 /* ViewController.swift in Sources */,
 				811293AF25416FDE009F8856 /* DatePickerVC.swift in Sources */,
 				81074F8025762ADF00C60057 /* StartEndTimePickerVC.swift in Sources */,

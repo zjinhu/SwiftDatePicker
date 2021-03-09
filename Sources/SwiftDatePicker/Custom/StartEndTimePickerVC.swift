@@ -123,7 +123,11 @@ public class StartEndTimePickerVC: UIViewController, PresentedViewType{
         }
     }
     
-    
+    /// 弹出选择起始+结束时间
+    /// - Parameters:
+    ///   - headConfig: 顶部Bar适配器回调
+    ///   - dateCallBack: 选择日期回调
+    ///   - dismissCallBack: 收起视图回调
     public static func showPicker(headConfig: HeadBarConfig,
                                   dateCallBack: @escaping TimeIntervalClosure,
                                   dismissCallBack: @escaping CloseClosure){
