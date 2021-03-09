@@ -1,5 +1,7 @@
 # SwiftDatePicker
-日期滚轮，可直接添加view，也可弹窗，有多种样式可以选择。直接闭包返回选定Date。
+日期滚轮，可直接添加view，也可弹窗，有多种样式可以选择。直接闭包返回选定Date。依赖SwiftShow
+
+### [SwiftShow](https://github.com/jackiehu/SwiftShow)
 
 | ![](1.png) | ![](2.png) | ![](3.png) |
 | ---------- | ---------- | ---------- |
