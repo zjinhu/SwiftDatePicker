@@ -86,10 +86,12 @@ public class UIDatePickerVC: UIViewController, PresentedViewType {
     /// 弹出UIDatePickerVC
     /// - Parameters:
     ///   - mode: UIDatePicker.Mode 系统UIDatePicker的样式
+    ///   - selectDate: 已选定时间
     ///   - headConfig: 顶部Bar适配器回调
     ///   - dateCallBack: 选择日期回调
     ///   - dismissCallBack: 收起视图回调
     public static func showPicker(mode: UIDatePicker.Mode,
+                                  selectDate: Date = Date(),
                                   headConfig: HeadBarConfig,
                                   dateCallBack: @escaping PickerClosure,
                                   dismissCallBack: @escaping CloseClosure){
@@ -97,6 +99,7 @@ public class UIDatePickerVC: UIViewController, PresentedViewType {
         let bar = HeadBar()
         headConfig(bar)
         let vc = UIDatePickerVC(mode: mode)
+        vc.picker.date = selectDate
         vc.barConfig = bar
         vc.pickerCallBack = dateCallBack
         vc.dismissCallBack = dismissCallBack

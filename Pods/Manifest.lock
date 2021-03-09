@@ -1,6 +1,6 @@
 PODS:
   - SnapKit (5.0.1)
-  - Swift_Form (1.0.6):
+  - Swift_Form (1.0.7):
     - SnapKit
   - SwiftBrick (1.8.5):
     - SnapKit
@@ -28,10 +28,10 @@ PODS:
     - SwiftBrick/Util
   - SwiftButton (1.1.0):
     - SnapKit
-  - SwiftShow/Class (0.6.0):
+  - SwiftShow/Class (0.7.0):
     - SnapKit
     - SwiftButton
-  - SwiftShow/Presentation (0.6.0):
+  - SwiftShow/Presentation (0.7.0):
     - SwiftShow/Class
 
 DEPENDENCIES:
@@ -49,10 +49,10 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
-  Swift_Form: 65539d8cef741dc494a054aeb100f09ec5e561af
+  Swift_Form: 6c4b0a7cf0cfb844bcfed3a21bd8d50d11b9f4f1
   SwiftBrick: f1a67b7147a05ae6fa181c273cffdb42585c1f4f
   SwiftButton: d6313f6082ffa5a86e27b6da09f2e1700441e420
-  SwiftShow: 6ca53d5a57475d83da7ec16efb32088a5bc14533
+  SwiftShow: 588afdd0739c792d73ee2fc962ee9f6691a25087
 
 PODFILE CHECKSUM: 9bd5865fb862baf1a74f2e688b67efdb65acd232
 

@@ -16,6 +16,7 @@ public class StartEndTimePickerVC: UIViewController, PresentedViewType{
     
     fileprivate var startDate: Date = Date()
     fileprivate var endDate: Date = Date()
+    
     fileprivate var barConfig: HeadBar!
     lazy var header: HeaderBar = {
         let v = HeaderBar(barConfig)
@@ -36,19 +37,29 @@ public class StartEndTimePickerVC: UIViewController, PresentedViewType{
         return v
     }()
     
-    lazy fileprivate var startPickView = DatePickerView(type: .pickerTime,
-                                                        showUnit: false,
-                                                        callBack: { [weak self] (date) in
-                                                            guard let `self` = self else{ return }
-                                                            self.startDate = date
-                                                        })
+    fileprivate var startPickView : DatePickerView?
+    fileprivate var endPickView : DatePickerView?
     
-    lazy fileprivate var endPickView = DatePickerView(type: .pickerTime,
-                                                      showUnit: false,
-                                                      callBack: { [weak self] (date) in
-                                                        guard let `self` = self else{ return }
-                                                        self.endDate = date
-                                                      })
+    public convenience init(startDate: Date, endDate: Date) {
+        self.init()
+        startPickView = DatePickerView(type: .pickerTime,
+                                       selectDate: startDate,
+                                       showUnit: false,
+                                       callBack: { [weak self] (date) in
+                                        guard let `self` = self else{ return }
+                                        self.startDate = date
+                                       })
+        
+        endPickView = DatePickerView(type: .pickerTime,
+                                     selectDate: endDate,
+                                     showUnit: false,
+                                     callBack: { [weak self] (date) in
+                                        guard let `self` = self else{ return }
+                                        self.endDate = date
+                                     })
+    }
+    
+
     
     lazy var toLabel: UILabel = {
         let lab = UILabel()
@@ -89,8 +100,8 @@ public class StartEndTimePickerVC: UIViewController, PresentedViewType{
         }
         
         view.addSubview(leftLabel)
-        view.addSubview(startPickView)
-        startPickView.snp.makeConstraints { (make) in
+        view.addSubview(startPickView!)
+        startPickView?.snp.makeConstraints { (make) in
             make.top.equalTo(header.snp.bottom).offset(5)
             make.left.equalToSuperview().offset(20)
             make.right.equalTo(view.snp.centerX).offset(-20)
@@ -98,19 +109,19 @@ public class StartEndTimePickerVC: UIViewController, PresentedViewType{
         }
         
         leftLabel.snp.makeConstraints { (m) in
-            m.centerX.equalTo(startPickView)
-            m.centerY.equalTo(startPickView)
+            m.centerX.equalTo(startPickView!)
+            m.centerY.equalTo(startPickView!)
         }
         
         view.addSubview(toLabel)
         toLabel.snp.makeConstraints { (m) in
             m.centerX.equalToSuperview()
-            m.centerY.equalTo(startPickView)
+            m.centerY.equalTo(startPickView!)
         }
         
         view.addSubview(rightLabel)
-        view.addSubview(endPickView)
-        endPickView.snp.makeConstraints { (make) in
+        view.addSubview(endPickView!)
+        endPickView?.snp.makeConstraints { (make) in
             make.top.equalTo(header.snp.bottom).offset(5)
             make.left.equalTo(view.snp.centerX).offset(20)
             make.right.equalToSuperview().offset(-20)
@@ -118,22 +129,26 @@ public class StartEndTimePickerVC: UIViewController, PresentedViewType{
         }
         
         rightLabel.snp.makeConstraints { (m) in
-            m.centerX.equalTo(endPickView)
-            m.centerY.equalTo(endPickView)
+            m.centerX.equalTo(endPickView!)
+            m.centerY.equalTo(endPickView!)
         }
     }
     
     /// 弹出选择起始+结束时间
     /// - Parameters:
+    ///   - startDate: 已选定开始时间
+    ///   - endDate: 已选定结束时间
     ///   - headConfig: 顶部Bar适配器回调
     ///   - dateCallBack: 选择日期回调
     ///   - dismissCallBack: 收起视图回调
-    public static func showPicker(headConfig: HeadBarConfig,
+    public static func showPicker(startDate: Date = Date(),
+                                  endDate: Date = Date(),
+                                  headConfig: HeadBarConfig,
                                   dateCallBack: @escaping TimeIntervalClosure,
                                   dismissCallBack: @escaping CloseClosure){
         let bar = HeadBar()
         headConfig(bar)
-        let vc = StartEndTimePickerVC()
+        let vc = StartEndTimePickerVC(startDate: startDate, endDate: endDate)
         vc.barConfig = bar
         vc.pickerCallBack = dateCallBack
         vc.dismissCallBack = dismissCallBack

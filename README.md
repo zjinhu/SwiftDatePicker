@@ -3,9 +3,11 @@
 
 ### [SwiftShow](https://github.com/jackiehu/SwiftShow)
 
-| ![](1.png) | ![](2.png) | ![](3.png) |
-| ---------- | ---------- | ---------- |
-| ![](4.png) | ![](5.png) | ![](6.png) |
+| 选择时间间隔--默认时间（当前） | 选择时间间隔--包含上轮选定时间 | 系统Picker选择日期--默认时间     |
+| ------------------------------ | ------------------------------ | -------------------------------- |
+| ![](1.png)                     | ![](2.png)                     | ![](3.png)                       |
+| 系统Picker选择日期--选定时间   | 自定义Picker--默认时间         | 自定义Picker--选定时间--更改标题 |
+| ![](4.png)                     | ![](5.png)                     | ![](6.png)                       |
 
 ## 用法
 
@@ -32,11 +34,13 @@ API
     /// 初始化DatePickerView
     /// - Parameters:
     ///   - type: DatePickerStyle样式
+    ///   - selectDate: 已选定时间
     ///   - minYear: 滚轮最小年份(不需要选择年费可不加)
     ///   - maxYear: 滚轮最大年份(不需要选择年费可不加)
     ///   - showUnit: 是否显示单位(年月日等)
     ///   - callBack: 回调Date
     public convenience init(type: DatePickerStyle,
+                            selectDate: Date = Date(),
                             minYear: Int = Date().getYear(),
                             maxYear: Int = Date().getYear() + 5,
                             showUnit: Bool = true,
@@ -71,10 +75,12 @@ API
     /// 弹出UIDatePickerVC
     /// - Parameters:
     ///   - mode: UIDatePicker.Mode 系统UIDatePicker的样式
+    ///   - selectDate: 已选定时间
     ///   - headConfig: 顶部Bar适配器回调
     ///   - dateCallBack: 选择日期回调
     ///   - dismissCallBack: 收起视图回调
     public static func showPicker(mode: UIDatePicker.Mode,
+                                  selectDate: Date = Date(),
                                   headConfig: HeadBarConfig,
                                   dateCallBack: @escaping PickerClosure,
                                   dismissCallBack: @escaping CloseClosure)
@@ -84,10 +90,12 @@ API
     /// 弹出自定义DatePickerVC
     /// - Parameters:
     ///   - pickerType: DatePickerStyle的样式
+    ///   - selectDate: 已选定时间
     ///   - headConfig: 顶部Bar适配器回调
     ///   - dateCallBack: 选择日期回调
     ///   - dismissCallBack: 收起视图回调
     public static func showPicker(pickerType: DatePickerStyle = .pickerDate,
+                                  selectDate: Date = Date(),
                                   headConfig: HeadBarConfig,
                                   dateCallBack: @escaping PickerClosure,
                                   dismissCallBack: @escaping CloseClosure)
@@ -96,12 +104,86 @@ API
 ```swift
     /// 弹出选择起始+结束时间
     /// - Parameters:
+    ///   - startDate: 已选定开始时间
+    ///   - endDate: 已选定结束时间
     ///   - headConfig: 顶部Bar适配器回调
     ///   - dateCallBack: 选择日期回调
     ///   - dismissCallBack: 收起视图回调
-    public static func showPicker(headConfig: HeadBarConfig,
+    public static func showPicker(startDate: Date = Date(),
+                                  endDate: Date = Date(),
+                                  headConfig: HeadBarConfig,
                                   dateCallBack: @escaping TimeIntervalClosure,
                                   dismissCallBack: @escaping CloseClosure)
+```
+
+
+
+Bar适配器
+
+```swift
+public class HeadBar {
+    ///bar样式 标题居中/标题居左
+    public var barStyle: BarStyle = .titleCenter
+    ///bar背景色
+    public var barColor: UIColor?
+    ///bar高度
+    public var barHeight: CGFloat?
+    ///bar标题字体
+    public var titleFont: UIFont?
+    ///bar按钮字体
+    public var buttonFont: UIFont?
+    ///bar标题
+    public var titleString: String?
+    ///bar左按钮标题
+    public var leftString: String?
+    ///bar右按钮标题
+    public var rightString: String?
+    ///bar左按钮图片
+    public var leftNorImage: UIImage?
+    ///bar右按钮图片
+    public var rightNorImage: UIImage?
+    ///bar左按钮按下图片
+    public var leftHigImage: UIImage?
+    ///bar右按钮按下图片
+    public var rightHigImage: UIImage?
+    ///bar标题字体颜色
+    public var barTitleColor: UIColor?
+    ///bar左按钮字体颜色
+    public var leftNorColor: UIColor?
+    ///bar右按钮字体颜色
+    public var rightNorColor: UIColor?
+    ///bar左按钮按下字体颜色
+    public var leftHigColor: UIColor?
+    ///bar右按钮按下字体颜色
+    public var rightHigColor: UIColor?
+    ///bar左按钮宽度
+    public var leftWidth: CGFloat?
+    ///bar右按钮宽度
+    public var rightWidth: CGFloat?
+}
+```
+
+全局DatePicker适配器（静态）
+
+```swift
+///DatePicker适配器
+public struct DatePicker {
+    ///滚轮内字体
+    public static var pickerFont: UIFont?
+    ///滚轮内字体颜色
+    public static var pickerTextColor: UIColor?
+    ///滚轮整体背景色
+    public static var pickerBackColor: UIColor?
+    
+    ///滚轮宽度
+    public static var pickerWidth: CGFloat?
+    ///滚轮高度
+    public static var pickerHeight: CGFloat?
+    ///滚轮最小年
+    public static var minYear: Int?
+    ///滚轮最大年
+    public static var maxYear: Int?
+}
 ```
 
 

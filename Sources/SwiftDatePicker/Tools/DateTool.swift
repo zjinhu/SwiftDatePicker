@@ -31,13 +31,6 @@ public extension Date {
         return num
     }
 
-    func getWeek() -> Int{
-        ///拿到现在的week数字
-        let components = calendar.dateComponents([.weekday], from: self)
-        let weekCount = components.weekday ?? 0
-        return weekCount
-    }
-    
     func getHour() -> Int{
         let components = calendar.dateComponents([.hour], from: self)
         let num = components.hour ?? 0
@@ -47,6 +40,12 @@ public extension Date {
     func getMinute() -> Int{
         let components = calendar.dateComponents([.minute], from: self)
         let num = components.minute ?? 0
+        return num
+    }
+    
+    func getSecond() -> Int{
+        let components = calendar.dateComponents([.second], from: self)
+        let num = components.second ?? 0
         return num
     }
 }

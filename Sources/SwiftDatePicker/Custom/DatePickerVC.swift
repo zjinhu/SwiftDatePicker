@@ -37,11 +37,12 @@ public class DatePickerVC: UIViewController, PresentedViewType{
         return v
     }()
 
-    public convenience init(pickerType: DatePickerStyle) {
+    public convenience init(pickerType: DatePickerStyle, selectDate: Date) {
         self.init()
         pickView = DatePickerView(type: pickerType,
-                                  minYear: DatePicker.minYear ?? Date().getYear(),
-                                  maxYear: DatePicker.maxYear ?? Date().getYear() + 5,
+                                  selectDate: selectDate,
+                                  minYear: DatePicker.minYear ?? selectDate.getYear(),
+                                  maxYear: DatePicker.maxYear ?? selectDate.getYear() + 5,
                                   callBack: { [weak self] (date) in
             guard let `self` = self else{ return }
             self.pickerDate = date
@@ -74,16 +75,18 @@ public class DatePickerVC: UIViewController, PresentedViewType{
     /// 弹出自定义DatePickerVC
     /// - Parameters:
     ///   - pickerType: DatePickerStyle的样式
+    ///   - selectDate: 已选定时间
     ///   - headConfig: 顶部Bar适配器回调
     ///   - dateCallBack: 选择日期回调
     ///   - dismissCallBack: 收起视图回调
     public static func showPicker(pickerType: DatePickerStyle = .pickerDate,
+                                  selectDate: Date = Date(),
                                   headConfig: HeadBarConfig,
                                   dateCallBack: @escaping PickerClosure,
                                   dismissCallBack: @escaping CloseClosure){
         let bar = HeadBar()
         headConfig(bar)
-        let vc = DatePickerVC(pickerType: pickerType)
+        let vc = DatePickerVC(pickerType: pickerType, selectDate: selectDate)
         vc.barConfig = bar
         vc.pickerCallBack = dateCallBack
         vc.dismissCallBack = dismissCallBack

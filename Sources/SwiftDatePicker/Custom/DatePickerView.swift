@@ -26,12 +26,26 @@ public enum DatePickerStyle {
 }
 
 public class DatePickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource{
+
     
-    fileprivate var year: Int = Date().getYear()
-    fileprivate var month: Int = Date().getMonth()
-    fileprivate var day: Int = Date().getDay()
-    fileprivate var hour: Int = Date().getHour()
-    fileprivate var minute: Int = Date().getMinute()
+    var selDate: Date?{
+        didSet{
+            guard let date = selDate else {
+                return
+            }
+            year = date.getYear()
+            month = date.getMonth()
+            day = date.getDay()
+            hour = date.getHour()
+            minute = date.getMinute()
+        }
+    }
+    
+    fileprivate var year: Int = 0
+    fileprivate var month: Int = 0
+    fileprivate var day: Int = 0
+    fileprivate var hour: Int = 0
+    fileprivate var minute: Int = 0
     
     fileprivate var pickerType: DatePickerStyle = .pickerDate
     
@@ -42,21 +56,27 @@ public class DatePickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSourc
     public typealias PickerClosure = (Date) -> Void
     fileprivate var pickerCallBack : PickerClosure?
     
-    
     /// 初始化DatePickerView
     /// - Parameters:
     ///   - type: DatePickerStyle样式
-    ///   - minYear: 滚轮最小年份(不需要选择年费可不加)
+    ///   - selectDate: 已选定时间
+    ///   - minYear:  滚轮最小年份(不需要选择年费可不加)
     ///   - maxYear: 滚轮最大年份(不需要选择年费可不加)
     ///   - showUnit: 是否显示单位(年月日等)
     ///   - callBack: 回调Date
     public convenience init(type: DatePickerStyle,
+                            selectDate: Date = Date(),
                             minYear: Int = Date().getYear(),
                             maxYear: Int = Date().getYear() + 5,
                             showUnit: Bool = true,
                             callBack: @escaping PickerClosure){
         self.init()
         pickerType = type
+        year = selectDate.getYear()
+        month = selectDate.getMonth()
+        day = selectDate.getDay()
+        hour = selectDate.getHour()
+        minute = selectDate.getMinute()
         min = minYear
         max = maxYear
         isShowUnit = showUnit
