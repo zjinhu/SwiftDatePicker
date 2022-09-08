@@ -6,11 +6,28 @@
 //
 
 import UIKit
-import SwiftShow
 import SnapKit
-public class UIDatePickerVC: UIViewController, PresentedViewType {
-    public var presentedViewComponent: PresentedViewComponent?
-
+public class UIDatePickerVC: UIViewController {
+    ///半窗样式: 黑背景
+    fileprivate lazy var dimmedView: UIView = {
+        let view = UIView()
+        view.frame = self.view.frame
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dimmedViewTapped)))
+        return view
+    }()
+    ///半窗样式: 内容区域
+    fileprivate lazy var contentsView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .baseBGColor
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.clipsToBounds = true
+        view.layer.setCorners(20, corners: .bothTop)
+        return view
+    }()
+    
+    ///半窗样式: 位置
+    fileprivate lazy var bottomLayout: NSLayoutConstraint = contentsView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+ 
     fileprivate var dismissCallBack : CloseClosure?
     fileprivate var pickerCallBack : PickerClosure?
     fileprivate var pickerDate: Date = Date()
@@ -23,14 +40,14 @@ public class UIDatePickerVC: UIViewController, PresentedViewType {
         v.leftCallBack = { [weak self] in
             guard let `self` = self else{ return }
             self.dismissCallBack?()
-            self.dismiss(animated: true, completion: nil)
+            self.hide()
         }
         
         v.rightCallBack = { [weak self] in
             guard let `self` = self else{ return }
             self.pickerCallBack?(self.pickerDate)
             self.dismissCallBack?()
-            self.dismiss(animated: true, completion: nil)
+            self.hide()
         }
         
         return v
@@ -50,24 +67,51 @@ public class UIDatePickerVC: UIViewController, PresentedViewType {
     
     public convenience init(mode: UIDatePicker.Mode) {
         self.init()
+        modalPresentationStyle = .overCurrentContext
+        definesPresentationContext = true
         picker.datePickerMode = mode
+    }
+    
+    ///半窗样式: 动画
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        ///VC出现后开始内容弹出动画
+        DispatchQueue.main.asyncAfter(delay: 0.1) {
+            self.showAnimtation()
+        }
     }
     
     public override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = DatePicker.pickerBackColor ?? .white
-        view.clipsToBounds = true
-        view.layer.cornerRadius = 10
-        view.layer.maskedCorners = [.layerMinXMinYCorner,.layerMaxXMinYCorner]
+        ///半窗样式: ┬┬┬┬┬┬┬┬┬┬
+        view.backgroundColor = UIColor.black.alpha(0.3)
+        view.addSubview(dimmedView)
         
-        view.addSubview(header)
+        contentsView.transform = .init(translationX: 0, y: view.frame.height)
+        view.addSubview(contentsView)
+        NSLayoutConstraint.activate([
+            contentsView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            contentsView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            contentsView.heightAnchor.constraint(equalToConstant: DatePicker.pickerHeight ?? 300),
+            bottomLayout
+        ])
+        
+        let viewPan = UIPanGestureRecognizer(target: self, action: #selector(contentsViewPanGestured))
+        viewPan.delaysTouchesBegan = true
+        viewPan.delaysTouchesEnded = true
+        contentsView.addGestureRecognizer(viewPan)
+        ///半窗样式: ┴┴┴┴┴┴┴┴┴┴┴┴
+        ///
+        contentsView.backgroundColor = DatePicker.pickerBackColor ?? .white
+ 
+        contentsView.addSubview(header)
         header.snp.makeConstraints { (m) in
             m.top.left.right.equalToSuperview()
             m.height.equalTo(barConfig.barHeight ?? 45)
         }
          
-        view.addSubview(picker)
+        contentsView.addSubview(picker)
         picker.snp.makeConstraints { (make) in
             make.top.equalTo(header.snp.bottom).offset(5)
             make.left.equalToSuperview()//.offset(5)
@@ -90,7 +134,8 @@ public class UIDatePickerVC: UIViewController, PresentedViewType {
     ///   - headConfig: 顶部Bar适配器回调
     ///   - dateCallBack: 选择日期回调
     ///   - dismissCallBack: 收起视图回调
-    public static func showPicker(mode: UIDatePicker.Mode,
+    public static func showPicker(_ fromeVC: UIViewController,
+                                  mode: UIDatePicker.Mode,
                                   selectDate: Date = Date(),
                                   headConfig: HeadBarConfig,
                                   dateCallBack: @escaping PickerClosure,
@@ -103,11 +148,59 @@ public class UIDatePickerVC: UIViewController, PresentedViewType {
         vc.barConfig = bar
         vc.pickerCallBack = dateCallBack
         vc.dismissCallBack = dismissCallBack
-        var component = PresentedViewComponent(contentSize: CGSize(width: DatePicker.pickerWidth ?? UIScreen.main.bounds.width, height: DatePicker.pickerHeight ?? 300))
-        component.destination = .bottomBaseline
-        component.presentTransitionType = .translation(origin: .bottomOutOfLine)
-        vc.presentedViewComponent = component
-        Show.currentViewController()?.presentViewController(vc)
+        fromeVC.present(vc, animated: false) 
     }
     
 }
+
+///半窗样式处理
+extension UIDatePickerVC{
+    
+    private func showAnimtation() {
+        dimmedView.alpha = 0
+        
+        UIView.animate(withDuration: 0.25) {
+            self.dimmedView.alpha = 0.5
+            self.contentsView.transform = .init(translationX: 0, y: 0)
+        }
+    }
+    
+    public func hide() {
+//        view.endEditing(true)
+        UIView.animate(withDuration: 0.25) {
+            self.dimmedView.alpha = 0.0
+            self.contentsView.transform = .init(translationX: 0, y: self.view.frame.height)
+        } completion: { _ in
+            self.dismiss(animated: false)
+        }
+    }
+    
+    @objc private func dimmedViewTapped(_ sender: UITapGestureRecognizer) {
+        hide()
+//        view.endEditing(true)
+    }
+    
+    @objc private func contentsViewPanGestured(_ sender: UIPanGestureRecognizer) {
+        let translation = sender.translation(in: contentsView)
+        let translationY = translation.y
+        let velocity = sender.velocity(in: contentsView)
+        switch sender.state {
+        case .ended:
+            
+            if (velocity.y > 200 && translationY > 0) || translationY > 200 {
+                self.hide()
+            } else {
+                UIView.animate(withDuration: 0.2) {
+                    self.contentsView.transform = .init(translationX: 0, y: 0)
+                }
+            }
+            
+        default:
+            if translationY > 0 {
+                contentsView.transform = .init(translationX: 0, y: translationY)
+            }
+        }
+    }
+
+}
+

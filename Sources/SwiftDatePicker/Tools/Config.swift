@@ -20,10 +20,8 @@ public struct DatePicker {
     public static var pickerTextColor: UIColor?
     ///滚轮整体背景色
     public static var pickerBackColor: UIColor?
-    
-    ///滚轮宽度
-    public static var pickerWidth: CGFloat?
-    ///滚轮高度
+ 
+    ///滚轮弹窗高度
     public static var pickerHeight: CGFloat?
     ///滚轮最小年
     public static var minYear: Int?

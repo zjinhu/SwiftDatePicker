@@ -42,7 +42,7 @@ class ViewController: JHTableViewController {
         row1.cell.addDownLine()
         row1.onSelected { (row) in
             
-            StartEndTimePickerVC.showPicker{ (bar) in
+            StartEndTimePickerVC.showPicker(self){ (bar) in
                 bar.titleString = "选择时间"
                 bar.barColor = .white
                 bar.leftString = "取消"
@@ -62,7 +62,7 @@ class ViewController: JHTableViewController {
         row2.cell.addDownLine()
         row2.onSelected { (row) in
             
-            StartEndTimePickerVC.showPicker(startDate: Date(hour: 13, minute: 22)!,
+            StartEndTimePickerVC.showPicker(self ,startDate: Date(hour: 13, minute: 22)!,
                                             endDate: Date(hour: 17, minute: 22)!) { (bar) in
                 bar.titleString = "选择时间"
                 bar.barTitleColor = .white
@@ -86,7 +86,7 @@ class ViewController: JHTableViewController {
         row3.cell.addDownLine()
         row3.onSelected { (row) in
 
-            UIDatePickerVC.showPicker(mode: .dateAndTime) { (bar) in
+            UIDatePickerVC.showPicker(self ,mode: .dateAndTime) { (bar) in
                 bar.titleString = "选择日期"
                 bar.barColor = .random
                 bar.leftNorImage = UIImage(named: "image_cancle")
@@ -106,7 +106,7 @@ class ViewController: JHTableViewController {
         row4.cell.addDownLine()
         row4.onSelected { (row) in
 
-            UIDatePickerVC.showPicker(mode: .date,
+            UIDatePickerVC.showPicker(self ,mode: .date,
                                       selectDate: Date(year: 2022, month: 10, day: 22, hour: 13, minute: 22, second: 33)!) { (bar) in
                 bar.titleString = "选择日期"
                 bar.barColor = .random
@@ -125,7 +125,7 @@ class ViewController: JHTableViewController {
         row5.cell.accessoryType = .disclosureIndicator
         row5.cell.addDownLine()
         row5.onSelected {(row) in
-            DatePickerVC.showPicker(pickerType: .pickerDateHourMinute) { (bar) in
+            DatePickerVC.showPicker(self ,pickerType: .pickerDateHourMinute) { (bar) in
                 bar.titleString = "选择日期"
                 bar.barColor = .random
                 bar.leftNorImage = UIImage(named: "image_cancle")
@@ -143,7 +143,7 @@ class ViewController: JHTableViewController {
         row6.cell.accessoryType = .disclosureIndicator
         row6.cell.addDownLine()
         row6.onSelected { (row) in
-            DatePickerVC.showPicker(pickerType: .pickerMonthDayHour,
+            DatePickerVC.showPicker(self ,pickerType: .pickerMonthDayHour,
                                     selectDate: Date(year: 2022, month: 10, day: 22, hour: 13, minute: 22, second: 33)!) { (bar) in
                 bar.titleString = "选择日期"
                 bar.barStyle = .titleLeft
