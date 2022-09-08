@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+// MARK: ===================================扩展: UINavigationController出入栈导航栏隐藏展示平滑切换,只需要①②两步即可=========================================
 //extension UIApplication {
 //    ///ios13以上失效,需要手动调用SwizzleNavBar.swizzle
 //    override open var next: UIResponder? {
@@ -17,27 +17,11 @@ import UIKit
 //}
 
 public class SwizzleNavBar {
+    //MARK: ‼️APP初始化时需要交换一下方法‼️重要①‼️
     public static let swizzle: Void = {
         UIViewController.swizzleMethod()
         UINavigationController.swizzle()
     }()
-}
-
-public extension NSObject {
-
-    static func swizzlingForClass(_ forClass: AnyClass, originalSelector: Selector, swizzledSelector: Selector) {
-        guard let originalMethod = class_getInstanceMethod(forClass, originalSelector),
-              let swizzledMethod = class_getInstanceMethod(forClass, swizzledSelector) else {
-            return
-        }
-
-        let isAddSuccess = class_addMethod(forClass, originalSelector, method_getImplementation(swizzledMethod), method_getTypeEncoding(swizzledMethod))
-        if isAddSuccess {
-            class_replaceMethod(forClass, swizzledSelector, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod))
-        } else {
-            method_exchangeImplementations(originalMethod, swizzledMethod)
-        }
-    }
 }
 
 public extension UIViewController {
@@ -51,7 +35,7 @@ public extension UIViewController {
         guard self == UIViewController.self else { return }
         let originalSelector = #selector(viewWillAppear(_: ))
         let swizzledSelector = #selector(jh_viewWillAppear(_: ))
-        swizzlingForClass(UIViewController.self, originalSelector: originalSelector, swizzledSelector: swizzledSelector)
+        swizzling(UIViewController.self, originalSelector: originalSelector, swizzledSelector: swizzledSelector)
     }
 
     @objc internal var willAppearInjectBlock: ViewControllerWillAppearInjectBlock? {
@@ -81,7 +65,8 @@ public extension UIViewController {
     private struct Associate {
         static var NavigationBarHidden: String = "NavigationBarHidden"
     }
-    
+    //MARK: ‼️在需要展示隐藏导航栏的VC中赋值即可处理导航栏‼️重要②‼️
+    /// 处理导航栏在VC内赋值True即可隐藏导航栏
     var prefersNavigationBarHidden: Bool? {
         get {
             return objc_getAssociatedObject(self, &Associate.NavigationBarHidden) as? Bool
@@ -119,11 +104,11 @@ public extension UINavigationController {
         guard self == UINavigationController.self else { return }
         let originalSelector = #selector(setViewControllers(_:animated:))
         let swizzledSelector = #selector(jh_setViewControllers(_:animated:))
-        swizzlingForClass(UINavigationController.self, originalSelector: originalSelector, swizzledSelector: swizzledSelector)
+        swizzling(UINavigationController.self, originalSelector: originalSelector, swizzledSelector: swizzledSelector)
         
         let original = #selector(pushViewController(_:animated:))
         let swizzled = #selector(jh_pushViewController(_:animated:))
-        swizzlingForClass(UINavigationController.self, originalSelector: original, swizzledSelector: swizzled)
+        swizzling(UINavigationController.self, originalSelector: original, swizzledSelector: swizzled)
     }
 
     @objc func jh_pushViewController(_ viewController: UIViewController, animated: Bool) {

@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-
+// MARK: ===================================VC基类:协议=========================================
 public struct SwiftBrick{
     ///如果使用导航栏的功能可以全局设置下
     ///统一设置返回按钮图片(默认)
@@ -21,13 +21,14 @@ public struct SwiftBrick{
     public static var navBarRightFixSpace: CGFloat = 0
     
     ///当导航栏从隐藏的页面滑动到有导航栏的页面或者从有到无的页面滑动,使过度更加平滑,vc需要隐藏导航栏设置下prefersNavigationBarHidden = true
-    public static func navBarSmooth() {
+    //MARK: ‼️APP初始化时需要交换一下方法‼️重要①‼️
+    public static func inits() {
         SwizzleNavBar.swizzle
     }
 }
 
 public protocol JHBaseVC{
-    
+
     func hideDefaultBackBarButton()
     
     func fixSpaceLeftBarButton(btnItem: UIBarButtonItem)
@@ -91,7 +92,8 @@ public extension JHBaseVC where Self: UIViewController {
                           highLightImage: UIImage?,
                           touchUp: ButtonClosure?){
         
-        configLeftBarButton(normalImage: normalImage,
+        configLeftBarButton(text:"      ",
+                            normalImage: normalImage,
                             highLightImage: highLightImage)
         
         let btnItem = UIBarButtonItem(customView: leftBarButton)
@@ -104,7 +106,7 @@ public extension JHBaseVC where Self: UIViewController {
     }
     
     func addLeftBarButton(text: String,
-                          font: UIFont?,
+                          font: UIFont? = nil,
                           normalColor: UIColor? = nil,
                           highlightColor: UIColor? = nil,
                           touchUp: ButtonClosure?){
@@ -259,3 +261,21 @@ public extension UIViewController {
         }
     }
 }
+//public typealias AssociatedKeysHolder<T> = [Int: T]
+//
+//public extension UIViewController {
+//
+//    private static var leftButtonKey = AssociatedKeysHolder<UIButton>()
+//    private static var rightButtonKey = AssociatedKeysHolder<UIButton>()
+//
+//    var leftBarButton: UIButton {
+//        get {
+//            let button = UIButton(type: .custom)
+//            button.imageView?.contentMode = .center
+//            button.frame = CGRect(x: 0, y: 0, width: 0, height: NavBarHeight())
+//            return UIViewController.leftButtonKey[hash] ?? button
+//        }
+//        set {
+//            UIViewController.leftButtonKey[hash] = newValue
+//        }
+//    }

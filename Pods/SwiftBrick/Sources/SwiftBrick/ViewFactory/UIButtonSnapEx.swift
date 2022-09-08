@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+// MARK: ===================================工厂类:UIButton SnapKit=========================================
 public extension UIButton {
 
     /// 快速初始化UIButton 包含默认参数,初始化过程可以删除部分默认参数简化方法
@@ -32,7 +33,7 @@ public extension UIButton {
                          norImage: UIImage? = nil,
                          higImage: UIImage? = nil,
                          touchUp: ButtonClosure? = nil,
-                         snapKitMaker: ((ConstraintMaker) -> Void)? = nil) -> UIButton {
+                         snapKitMaker: ((_ make: ConstraintMaker) -> Void)? = nil) -> UIButton {
         
         let btn = UIButton(type: .custom)
         btn.backgroundColor = backColor

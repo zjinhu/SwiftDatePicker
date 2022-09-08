@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+// MARK: ===================================工厂类:UILabel SnapKit=========================================
 public extension UILabel {
     
     /// 快速初始化UILabel 包含默认参数,初始化过程可以删除部分默认参数简化方法
@@ -25,10 +26,10 @@ public extension UILabel {
                         backColor: UIColor? = .clear,
                         font: UIFont = UIFont.systemFont(ofSize: 14),
                         lines: Int = 0,
-                        text: String = "",
+                        text: String? = nil,
                         textColor: UIColor = .black,
                         textAlignment: NSTextAlignment = .left,
-                        snapKitMaker: ((ConstraintMaker) -> Void)? = nil) -> UILabel {
+                        snapKitMaker: ((_ make: ConstraintMaker) -> Void)? = nil) -> UILabel {
         
         let label = UILabel()
         label.text = text

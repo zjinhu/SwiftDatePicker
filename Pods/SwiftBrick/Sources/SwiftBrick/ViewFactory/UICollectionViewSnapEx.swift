@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+// MARK: ===================================工厂类:UICollectionView SnapKit=========================================
 public extension UICollectionView {
     
     /// 快速初始化UICollectionView 包含默认参数,初始化过程可以删除部分默认参数简化方法
@@ -24,7 +25,7 @@ public extension UICollectionView {
                                  scrollDirectionType: UICollectionView.ScrollDirection = .vertical,
                                  delegate: UICollectionViewDelegate? = nil,
                                  dataSource: UICollectionViewDataSource? = nil,
-                                 snapKitMaker: ((ConstraintMaker) -> Void)? = nil) -> UICollectionView{
+                                 snapKitMaker: ((_ make: ConstraintMaker) -> Void)? = nil) -> UICollectionView{
         
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.minimumLineSpacing = 0

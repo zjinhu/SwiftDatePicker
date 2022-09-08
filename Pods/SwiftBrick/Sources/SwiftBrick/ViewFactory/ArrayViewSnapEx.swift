@@ -8,7 +8,7 @@
 
 import SnapKit
 import UIKit
-
+// MARK: ===================================工厂类:处理视图数组排版=========================================
 public extension Array {
     var snp: ConstraintArrayDSL {
         return ConstraintArrayDSL(array: self as! Array<ConstraintView>)
@@ -17,7 +17,7 @@ public extension Array {
 
 public struct ConstraintArrayDSL {
     @discardableResult
-    public func prepareConstraints(_ closure: (ConstraintMaker) -> Void) -> [Constraint] {
+    public func prepareConstraints(_ closure: (_ make: ConstraintMaker) -> Void) -> [Constraint] {
         var constraints = Array<Constraint>()
         for view in self.array {
             constraints.append(contentsOf: view.snp.prepareConstraints(closure))
@@ -25,19 +25,19 @@ public struct ConstraintArrayDSL {
         return constraints
     }
     
-    public func makeConstraints(_ closure: (ConstraintMaker) -> Void) {
+    public func makeConstraints(_ closure: (_ make: ConstraintMaker) -> Void) {
         for view in self.array {
             view.snp.makeConstraints(closure)
         }
     }
     
-    public func remakeConstraints(_ closure: (ConstraintMaker) -> Void) {
+    public func remakeConstraints(_ closure: (_ make: ConstraintMaker) -> Void) {
         for view in self.array {
             view.snp.remakeConstraints(closure)
         }
     }
     
-    public func updateConstraints(_ closure: (ConstraintMaker) -> Void) {
+    public func updateConstraints(_ closure: (_ make: ConstraintMaker) -> Void) {
         for view in self.array {
             view.snp.updateConstraints(closure)
         }

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+// MARK: ===================================VC基类:UIViewController=========================================
 open class JHViewController: UIViewController, JHBaseVC {
 
     // MARK: - 布局
@@ -15,7 +15,6 @@ open class JHViewController: UIViewController, JHBaseVC {
         super.viewDidLoad()
         
         view.backgroundColor = L.color("bgColor")
-        edgesForExtendedLayout = .all
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         navigationController?.interactivePopGestureRecognizer?.delegate = self as? UIGestureRecognizerDelegate
         

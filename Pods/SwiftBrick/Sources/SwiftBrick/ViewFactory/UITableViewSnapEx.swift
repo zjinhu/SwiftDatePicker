@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+// MARK: ===================================工厂类:UITableView SnapKit=========================================
 public extension UITableView {
     
     /// 快速初始化UITableView 包含默认参数,初始化过程可以删除部分默认参数简化方法
@@ -24,7 +25,7 @@ public extension UITableView {
                             style: UITableView.Style = .plain,
                             delegate: UITableViewDelegate? = nil,
                             dataSource: UITableViewDataSource? = nil,
-                            snapKitMaker: ((ConstraintMaker) -> Void)? = nil) -> UITableView {
+                            snapKitMaker: ((_ make: ConstraintMaker) -> Void)? = nil) -> UITableView {
         
         let tableView = UITableView(frame: .zero, style: style)
         if delegate != nil {
