@@ -18,10 +18,11 @@ public class UIDatePickerVC: UIViewController {
     ///半窗样式: 内容区域
     fileprivate lazy var contentsView: UIView = {
         let view = UIView()
-        view.backgroundColor = .baseBGColor
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = DatePicker.pickerBackColor ?? .white
         view.clipsToBounds = true
-        view.layer.setCorners(20, corners: .bothTop)
+        view.layer.cornerRadius = 10
+        view.layer.maskedCorners = [.layerMinXMinYCorner,.layerMaxXMinYCorner]
         return view
     }()
     
@@ -103,8 +104,7 @@ public class UIDatePickerVC: UIViewController {
         contentsView.addGestureRecognizer(viewPan)
         ///半窗样式: ┴┴┴┴┴┴┴┴┴┴┴┴
         ///
-        contentsView.backgroundColor = DatePicker.pickerBackColor ?? .white
- 
+
         contentsView.addSubview(header)
         header.snp.makeConstraints { (m) in
             m.top.left.right.equalToSuperview()
