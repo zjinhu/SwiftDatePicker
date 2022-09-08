@@ -109,9 +109,7 @@ public class StartEndTimePickerVC: UIViewController{
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         ///VC出现后开始内容弹出动画
-        DispatchQueue.main.asyncAfter(delay: 0.1) {
-            self.showAnimtation()
-        }
+        showAnimtation()
     }
     
     public override func viewDidLoad() {
