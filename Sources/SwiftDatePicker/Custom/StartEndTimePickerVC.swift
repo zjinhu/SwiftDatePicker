@@ -116,7 +116,7 @@ public class StartEndTimePickerVC: UIViewController{
         super.viewDidLoad()
 
         ///半窗样式: ┬┬┬┬┬┬┬┬┬┬
-        view.backgroundColor = UIColor.black.alpha(0.3)
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.3)
         view.addSubview(dimmedView)
         
         contentsView.transform = .init(translationX: 0, y: view.frame.height)
